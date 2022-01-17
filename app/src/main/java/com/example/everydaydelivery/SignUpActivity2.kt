@@ -125,51 +125,5 @@ class SignUpActivity2 : AppCompatActivity() {
                 }
             }
         }
-
-
     }
-
-
-//    fun signup(email:String, password:String){
-//        firebaseAuth.createUserWithEmailAndPassword(email, password)
-//            .addOnCompleteListener { result->
-//                if (result.isSuccessful){
-//                    val user = firebaseAuth.currentUser
-//                    Toast.makeText(this, "Authentication Success", Toast.LENGTH_SHORT).show()
-//
-//                    var intent = Intent(this, LoginActivity::class.java)
-//                    startActivity(intent)
-//                } else {
-//                    Toast.makeText(this, "Authentication failed" + email + password, Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//        }
-
-
-    }
-
-
-//    // 전화번호 인증코드 요청
-//    private fun startPhoneNumberVerification(phoneNumber: String) {
-//        val options = PhoneAuthOptions.newBuilder(firebaseAuth)
-//            .setPhoneNumber(phoneNumber)       // Phone number to verify
-//            .setTimeout(90L, TimeUnit.SECONDS) // Timeout and unit
-//            .setActivity(this)                 // Activity (for callback binding)
-//            .setCallbacks(callbacks)          // OnVerificationStateChangedCallbacks
-//            .build()
-//        PhoneAuthProvider.verifyPhoneNumber(options)
-
-//        binding.phoneAuthBtnAuth.run {
-//            text = "재전송"
-//            setTextColor(
-//                ContextCompat.getColor(
-//                    this@PhoneAuthActivity, R.color.dark_gray_333333
-//                )
-//            )
-//            background = ContextCompat.getDrawable(
-//                this@PhoneAuthActivity, R.drawable.bg_btn_stroke_dark_gray_333333_radius_8dp
-//            )
-//        }
-//    }
-
-//}
+}

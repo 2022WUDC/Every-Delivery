@@ -3,11 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_find.xml" value="0.4036458333333333" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_home.xml" value="0.4036458333333333" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_login.xml" value="0.4036458333333333" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_sign_up.xml" value="0.4036458333333333" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_sign_up2.xml" value="0.33" />
+        <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/fragment_find_id.xml" value="0.4036458333333333" />
+        <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/fragment_find_password.xml" value="0.4036458333333333" />
       </map>
     </option>
   </component>
