@@ -23,5 +23,7 @@ class MainActivity : AppCompatActivity() {
         tvEmail = findViewById(R.id.textView_email)
         tvEmail.text = firebaseAuth.currentUser?.email
 
+
+
     }
 }
