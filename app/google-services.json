@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1075432162818",
+    "project_id": "wudc-70cdd",
+    "storage_bucket": "wudc-70cdd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075432162818:android:27f084d6771757c394c91b",
+        "android_client_info": {
+          "package_name": "com.example.everydaydelivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1075432162818-ekjdql2te1jqfunmafcmr91qnohrlll1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.everydaydelivery",
+            "certificate_hash": "9449d0a68b5b00f851c8f8257766d8ff858c57cc"
+          }
+        },
+        {
+          "client_id": "1075432162818-7ghss831okrh0liu7vu0u9m85k94eg1j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDirCvJQs8h526K5ZbQ2UGDxivDHf9qdBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1075432162818-7ghss831okrh0liu7vu0u9m85k94eg1j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
