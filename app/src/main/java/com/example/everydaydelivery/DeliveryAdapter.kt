@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.w3c.dom.Text
-
+//
 class DeliveryAdapter(val deliveryList:ArrayList<Datas>) : RecyclerView.Adapter<DeliveryAdapter.CustomViewHolder>()
 {
 
@@ -18,7 +18,9 @@ class DeliveryAdapter(val deliveryList:ArrayList<Datas>) : RecyclerView.Adapter<
 
     override fun onBindViewHolder(holder: DeliveryAdapter.CustomViewHolder, position: Int) {
         // 실제 만들어진 뷰 가져다가 연결
-        holder.arrive_add.text = deliveryList.get(position).ArriveAdd
+        holder.arrive_add.text = deliveryList[position].ArriveAdd
+
+
         //var viewHolder = (holder as RecyclerView.ViewHolder).itemView
         //var arriveaddress : TextView
 
