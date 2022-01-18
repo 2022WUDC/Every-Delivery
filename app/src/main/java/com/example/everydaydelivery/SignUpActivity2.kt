@@ -1,19 +1,14 @@
 package com.example.everydaydelivery
 
-import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.nfc.Tag
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseException
-import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.google.firebase.database.FirebaseDatabase
 import java.util.concurrent.TimeUnit
@@ -24,7 +19,6 @@ class SignUpActivity2 : AppCompatActivity() {
     private lateinit var database: FirebaseDatabase
 
     lateinit var storedVerificationId: String
-    lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
 
     lateinit var edt_name: EditText
@@ -59,8 +53,8 @@ class SignUpActivity2 : AppCompatActivity() {
         btn_cert_chk = findViewById(R.id.btn_cert_chk)
         btn_sign_up = findViewById(R.id.btn_sign_up)
 
+        // 인증번호 전송
         btn_phone_chk.setOnClickListener {
-            Log.d("TAG", "phone_check")
             phoneCheck()
         }
 
@@ -80,39 +74,23 @@ class SignUpActivity2 : AppCompatActivity() {
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
-
                 Log.d("TAG", "onCodeSent:$verificationId")
                 storedVerificationId = verificationId
-                Log.d("TAG", "onCodeSent:$storedVerificationId")
-//                resendToken = token
-//
-//                var intent = Intent(applicationContext, MainActivity::class.java)
-//                intent.putExtra("storedVerificationId", storedVerificationId)
-//                startActivity(intent)
             }
         }
 
+        //인증번호 확인
         btn_cert_chk.setOnClickListener {
             var check_num = edt_phone_check_num.text.toString()
             if (!check_num.isEmpty()) {
-                val credential : PhoneAuthCredential = PhoneAuthProvider.getCredential(
-                    storedVerificationId, check_num)
+                val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(
+                    storedVerificationId, check_num
+                )
                 signInWithPhoneAuthCredential(credential)
-            }else{
-                Toast.makeText(this,"인증 번호를 입력하세요",Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "인증 번호를 입력하세요", Toast.LENGTH_SHORT).show()
             }
         }
-
-
-//        btn_phone_chk.setOnClickListener {
-//            if (edt_phone.toString().length == 0){
-//                Toast.makeText(this, "전화번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
-//            } else {
-//                edt_phone_check_num.setVisibility(View.VISIBLE)
-//
-//            }
-//        }
-
 
         btn_sign_up.setOnClickListener {
             var name = edt_name.text.toString()
@@ -183,7 +161,6 @@ class SignUpActivity2 : AppCompatActivity() {
 
 
     private fun phoneCheck() {
-
         var phone = edt_phone.text.toString()
 
         if (!phone.isEmpty()) {
@@ -210,60 +187,14 @@ class SignUpActivity2 : AppCompatActivity() {
         firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    startActivity(Intent(applicationContext, LoginActivity::class.java))
-                    finish()
-// ...
+                    Toast.makeText(this, "인증 되었습니다", Toast.LENGTH_SHORT).show()
+//                    startActivity(Intent(applicationContext, LoginActivity::class.java))
+//                    finish()
                 } else {
-// Sign in failed, display a message and update the UI
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
-// The verification code entered was invalid
-                        Toast.makeText(this,"Invalid OTP",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "인증번호가 틀렸습니다", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
     }
-
-
-//    fun signup(email:String, password:String){
-//        firebaseAuth.createUserWithEmailAndPassword(email, password)
-//            .addOnCompleteListener { result->
-//                if (result.isSuccessful){
-//                    val user = firebaseAuth.currentUser
-//                    Toast.makeText(this, "Authentication Success", Toast.LENGTH_SHORT).show()
-//
-//                    var intent = Intent(this, LoginActivity::class.java)
-//                    startActivity(intent)
-//                } else {
-//                    Toast.makeText(this, "Authentication failed" + email + password, Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//        }
-
-
 }
-
-
-//    // 전화번호 인증코드 요청
-//    private fun startPhoneNumberVerification(phoneNumber: String) {
-//        val options = PhoneAuthOptions.newBuilder(firebaseAuth)
-//            .setPhoneNumber(phoneNumber)       // Phone number to verify
-//            .setTimeout(90L, TimeUnit.SECONDS) // Timeout and unit
-//            .setActivity(this)                 // Activity (for callback binding)
-//            .setCallbacks(callbacks)          // OnVerificationStateChangedCallbacks
-//            .build()
-//        PhoneAuthProvider.verifyPhoneNumber(options)
-
-//        binding.phoneAuthBtnAuth.run {
-//            text = "재전송"
-//            setTextColor(
-//                ContextCompat.getColor(
-//                    this@PhoneAuthActivity, R.color.dark_gray_333333
-//                )
-//            )
-//            background = ContextCompat.getDrawable(
-//                this@PhoneAuthActivity, R.drawable.bg_btn_stroke_dark_gray_333333_radius_8dp
-//            )
-//        }
-//    }
-
-//}
