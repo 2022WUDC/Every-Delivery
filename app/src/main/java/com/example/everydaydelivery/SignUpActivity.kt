@@ -166,7 +166,7 @@ class SignUpActivity : AppCompatActivity() {
         var phone = edt_phone.text.toString()
 
         if (!phone.isEmpty()) {
-            phone = "+82" + phone
+            phone = "+82" + phone.substring(1)
             Log.d("TAG", "$phone")
             sendVerificationcode(phone)
         } else {
