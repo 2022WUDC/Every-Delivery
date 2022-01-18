@@ -12,9 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EverydayDelivery">
-<!--        <activity-->
-<!--            android:name=".DeliveryActivity"-->
-<!--            android:exported="false" />-->
+        <activity
+            android:name=".DeliverysheetActivity"
+            android:exported="false" />
+        <!-- <activity -->
+        <!-- android:name=".DeliveryActivity" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".FindActivity"
             android:exported="false" />
