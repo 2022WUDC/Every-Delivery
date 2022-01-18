@@ -59,4 +59,46 @@
         android:ems="12"
         android:text="아이디 찾기" />
 
+
+    <TextView
+        android:id="@+id/textView_findId1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:visibility="gone"
+        android:textSize="20dp"
+        android:text="고객님의 아이디는"/>
+
+    <TextView
+        android:id="@+id/textView_findId2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="70dp"
+        android:visibility="gone"
+        android:textSize="20dp"
+        android:text="email address"/>
+
+    <TextView
+        android:id="@+id/textView_findId3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        android:visibility="gone"
+        android:textSize="20dp"
+        android:text="입니다."/>
+
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="150dp"
+        android:layout_gravity="center_horizontal"
+        android:ems="12"
+        android:visibility="gone"
+        android:text="로그인 페이지로" />
+
 </FrameLayout>

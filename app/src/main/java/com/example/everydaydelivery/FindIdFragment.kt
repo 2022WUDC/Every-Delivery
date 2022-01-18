@@ -1,6 +1,7 @@
 package com.example.everydaydelivery
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,11 +11,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
+import java.util.Arrays.toString
+import java.util.Objects.toString
 import java.util.concurrent.TimeUnit
 
 class FindIdFragment : Fragment() {
@@ -24,6 +30,11 @@ class FindIdFragment : Fragment() {
     lateinit var btnFindId_authNum: Button
     lateinit var btnFindId_check: Button
     lateinit var btnFindId: Button
+
+    lateinit var textView1: TextView
+    lateinit var textView2: TextView
+    lateinit var textView3: TextView
+    lateinit var btnLogin: Button
 
     lateinit var firebaseAuth: FirebaseAuth
     lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
@@ -54,6 +65,10 @@ class FindIdFragment : Fragment() {
         btnFindId_authNum = view.findViewById(R.id.button_findId_authNum)
         btnFindId_check = view.findViewById(R.id.button_findId_check)
         btnFindId = view.findViewById(R.id.button_findId)
+        textView1 = view.findViewById(R.id.textView_findId1)
+        textView2 = view.findViewById(R.id.textView_findId2)
+        textView3 = view.findViewById(R.id.textView_findId3)
+        btnLogin = view.findViewById(R.id.button_login)
 
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -93,7 +108,74 @@ class FindIdFragment : Fragment() {
         }
 
         btnFindId.setOnClickListener {
+            val userQuery = dbReference.child("users").orderByChild("phone").equalTo(etFindId_phone.text.toString())
+//            Toast.makeText(activity, "db : " + userQuery.toString(), Toast.LENGTH_SHORT).show()
 
+            userQuery.addChildEventListener(object: ChildEventListener{
+                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                    Log.d(TAG, "add key : " + snapshot)
+                    Toast.makeText(activity, "add key : " + snapshot, Toast.LENGTH_SHORT).show()
+                    Log.d(TAG, "email : " + snapshot.child("email").getValue())
+                    Toast.makeText(activity, "email : " + snapshot.child("email").getValue(), Toast.LENGTH_SHORT).show()
+
+                    val email = snapshot.child("email").getValue()
+
+                    if (email != null){
+                        etFindId_phone.visibility = View.GONE
+                        etFindId_authNum.visibility = View.GONE
+                        btnFindId_authNum.visibility = View.GONE
+                        btnFindId_check.visibility = View.GONE
+                        btnFindId.visibility = View.GONE
+
+                        textView2.text = email.toString()
+                        textView1.visibility = View.VISIBLE
+                        textView2.visibility = View.VISIBLE
+                        textView3.visibility = View.VISIBLE
+                        btnLogin.visibility = View.VISIBLE
+
+                    }
+                }
+
+                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+
+                }
+
+                override fun onChildRemoved(snapshot: DataSnapshot) {
+
+                }
+
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(activity, "Error", Toast.LENGTH_SHORT).show()
+                }
+
+            })
+
+            if(btnLogin.isVisible == false) {
+                Toast.makeText(activity, "아이디를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show()
+
+                val user = firebaseAuth.currentUser!!
+
+                user.delete()
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Log.d(TAG, "User account deleted.")
+                            etFindId_phone.text = null
+                            etFindId_authNum.text = null
+                            btnFindId_check.isEnabled = false
+                            btnFindId.isEnabled = false
+                        } else{
+                            Log.d(TAG, "User account deleted is Error.")
+                        }
+                    }
+            }
+        }
+
+        btnLogin.setOnClickListener {
+            startActivity(Intent(activity, LoginActivity::class.java))
         }
 
         return view
