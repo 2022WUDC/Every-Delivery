@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
             // deliveryActivity로 이동
             // 주문하기 페이지로 이동하는 것으로 수정해야 함
-            val intent = Intent(this, DeliveryActivity::class.java)
+            val intent = Intent(this, OrderActivity::class.java)
             startActivity(intent)
         }
 
