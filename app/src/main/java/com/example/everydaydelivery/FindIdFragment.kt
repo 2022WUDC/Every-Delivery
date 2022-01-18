@@ -113,10 +113,10 @@ class FindIdFragment : Fragment() {
 
             userQuery.addChildEventListener(object: ChildEventListener{
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    Log.d(TAG, "add key : " + snapshot)
-                    Toast.makeText(activity, "add key : " + snapshot, Toast.LENGTH_SHORT).show()
-                    Log.d(TAG, "email : " + snapshot.child("email").getValue())
-                    Toast.makeText(activity, "email : " + snapshot.child("email").getValue(), Toast.LENGTH_SHORT).show()
+//                    Log.d(TAG, "add key : " + snapshot)
+//                    Toast.makeText(activity, "add key : " + snapshot, Toast.LENGTH_SHORT).show()
+//                    Log.d(TAG, "email : " + snapshot.child("email").getValue())
+//                    Toast.makeText(activity, "email : " + snapshot.child("email").getValue(), Toast.LENGTH_SHORT).show()
 
                     val email = snapshot.child("email").getValue()
 
@@ -132,6 +132,16 @@ class FindIdFragment : Fragment() {
                         textView2.visibility = View.VISIBLE
                         textView3.visibility = View.VISIBLE
                         btnLogin.visibility = View.VISIBLE
+
+                        val user = firebaseAuth.currentUser!!
+
+                        user.delete()
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    Log.d(TAG, "User account deleted.")
+                                }
+                            }
+
 
                     }
                 }
