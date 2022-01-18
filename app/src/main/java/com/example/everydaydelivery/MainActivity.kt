@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import java.lang.reflect.Array.newInstance
 
 class MainActivity : AppCompatActivity() {
     lateinit var tvEmail: TextView
@@ -16,6 +17,8 @@ class MainActivity : AppCompatActivity() {
     // 주문하기, 배달하기 버튼
     lateinit var order: Button
     lateinit var delivery: Button
+    lateinit var btn_user: Button
+    lateinit var btn_chat: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +31,8 @@ class MainActivity : AppCompatActivity() {
 
         order = findViewById(R.id.order)
         delivery = findViewById(R.id.delivery)
+        btn_user = findViewById(R.id.btn_user)
+        btn_chat = findViewById(R.id.btn_chat)
 
         // 주문하기 버튼을 눌렀을 때
         order.setOnClickListener {
@@ -43,6 +48,16 @@ class MainActivity : AppCompatActivity() {
 
             // deliveryActivity로 이동
             val intent = Intent(this, DeliveryActivity::class.java)
+            startActivity(intent)
+        }
+
+        btn_user.setOnClickListener {
+            val intent = Intent(this, PeopleActivty::class.java)
+            startActivity(intent)
+        }
+
+        btn_chat.setOnClickListener {
+            val intent = Intent(this, ChatActivity::class.java)
             startActivity(intent)
         }
 
