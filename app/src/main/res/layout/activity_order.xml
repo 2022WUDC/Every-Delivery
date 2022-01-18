@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5sp"
-        android:text="가게 주소" />
+        android:text="가게 이름" />
 
     <EditText
         android:id="@+id/StoreAddress"
@@ -24,26 +24,12 @@
         android:hint="도로명 주소"
         android:inputType="textPersonName" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5sp"
-        android:text="주문자 주소" />
-
-    <EditText
-        android:id="@+id/UserAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5sp"
-        android:ems="10"
-        android:hint="도로명 주소"
-        android:inputType="textPersonName" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5sp"
-        android:text="메뉴" />
+        android:text="요청 메뉴" />
 
     <EditText
         android:id="@+id/Menu"
@@ -73,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5sp"
-        android:text="배달비" />
+        android:text="배달 금액" />
 
     <EditText
         android:id="@+id/DeliveryPrice"
@@ -83,6 +69,36 @@
         android:ems="10"
         android:hint="2000"
         android:inputType="number" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5sp"
+        android:text="최종 금액" />
+
+    <EditText
+        android:id="@+id/TotalPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5sp"
+        android:ems="10"
+        android:hint="20000"
+        android:inputType="number" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5sp"
+        android:text="추가 요청사항" />
+
+    <EditText
+        android:id="@+id/OrderRequest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5sp"
+        android:ems="10"
+        android:hint="영수증 필요해요!"
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/OrderSend"

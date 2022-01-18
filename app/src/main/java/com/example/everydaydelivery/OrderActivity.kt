@@ -7,13 +7,12 @@ import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 
 class OrderActivity : AppCompatActivity() {
-    lateinit var OrderSend: Button
+    //lateinit var OrderSend: Button
     lateinit var tvStoreAddress: TextView
-    lateinit var tvUserAddress: TextView
     lateinit var tvMenu: TextView
     lateinit var tvMenuPrice: TextView
     lateinit var tvDeliveryPrice: TextView
-
+    lateinit var tvTotalPrice: TextView
     lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,10 +22,10 @@ class OrderActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         tvStoreAddress = findViewById(R.id.StoreAddress)
-        tvUserAddress = findViewById(R.id.UserAddress)
         tvMenu = findViewById(R.id.Menu)
         tvMenuPrice = findViewById(R.id.MenuPrice)
         tvDeliveryPrice = findViewById(R.id.DeliveryPrice)
+        tvTotalPrice = findViewById(R.id.TotalPrice)
 
         //OrderSend.setOnClickListener {
             //주문서 요청 다음 페이지로 넘어감
