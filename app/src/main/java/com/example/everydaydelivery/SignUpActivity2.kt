@@ -57,6 +57,7 @@ class SignUpActivity2 : AppCompatActivity() {
         // 인증번호 전송
         btn_phone_chk.setOnClickListener {
             phoneCheck()
+            btn_cert_chk.isEnabled = true
         }
 
 
@@ -189,6 +190,7 @@ class SignUpActivity2 : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "인증 되었습니다", Toast.LENGTH_SHORT).show()
+                    btn_sign_up.isEnabled = true
 //                    startActivity(Intent(applicationContext, LoginActivity::class.java))
 //                    finish()
                 } else {
