@@ -92,16 +92,10 @@ class FindIdFragment : Fragment() {
 
 
     private fun phoneCheck() {
-        var etPhone = etFindId_phone.text.toString()
-
-        var front = etPhone.substring(1, 2)
-        var middle = etPhone.substring(3, 6)
-        var end = etPhone.substring(7, 10)
-
-        var phone = front + '-' + middle + '-' + end
+        var phone = etFindId_phone.text.toString()
 
         if (!phone.isEmpty()) {
-            phone = "+82" + phone
+            phone = "+82" + phone.substring(1)
             Log.d("TAG", "$phone")
             sendVerificationcode(phone)
         } else {
