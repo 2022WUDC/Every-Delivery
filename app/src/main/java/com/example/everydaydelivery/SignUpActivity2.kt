@@ -49,7 +49,7 @@ class SignUpActivity2 : AppCompatActivity() {
         edt_passwd = findViewById(R.id.edt_passwd)
         edt_passwd_chk = findViewById(R.id.edt_passwd_chk)
         edt_phone = findViewById(R.id.edt_phone)
-        edt_phone_check_num = findViewById(R.id.edt_phone_check_num)
+        //edt_phone_check_num = findViewById(R.id.edt_phone_check_num)
         btn_phone_chk = findViewById(R.id.btn_phone_chk)
         btn_sign_up = findViewById(R.id.btn_sign_up)
 
