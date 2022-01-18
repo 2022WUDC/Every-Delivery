@@ -1,5 +1,6 @@
 package com.example.everydaydelivery
 
+import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,8 @@ import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import java.util.concurrent.TimeUnit
 
 class FindIdFragment : Fragment() {
@@ -25,6 +28,8 @@ class FindIdFragment : Fragment() {
     lateinit var firebaseAuth: FirebaseAuth
     lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     lateinit var storedVerificationId: String
+    private lateinit var database: FirebaseDatabase
+    lateinit var ref: DatabaseReference
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +44,10 @@ class FindIdFragment : Fragment() {
         var view = inflater.inflate(R.layout.fragment_find_id, container, false)
 
         firebaseAuth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance()
+        val dbReference = database.reference
+        val userRef = dbReference.child("users")
+        ref = userRef
 
         etFindId_phone = view.findViewById(R.id.editText_findId_phone)
         etFindId_authNum = view.findViewById(R.id.editText_findId_authNum)
@@ -90,7 +99,6 @@ class FindIdFragment : Fragment() {
         return view
     }
 
-
     private fun phoneCheck() {
         var phone = etFindId_phone.text.toString()
 
@@ -120,6 +128,17 @@ class FindIdFragment : Fragment() {
                 if (task.isSuccessful) {
                     Toast.makeText(activity, "인증 되었습니다", Toast.LENGTH_SHORT).show()
                     btnFindId.isEnabled = true
+
+                    val user = firebaseAuth.currentUser
+                    val user_db = ref.child(user?.uid.toString())
+                    Log.d(ContentValues.TAG, "child.uid : " + user?.uid.toString())
+
+                    user_db.child("email").get().addOnSuccessListener {
+                        Log.i("firebase", "Got value ${it.value}")
+                    }.addOnFailureListener{
+                        Log.e("firebase", "Error getting data", it)
+                    }
+
                 } else {
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         Toast.makeText(activity, "인증번호가 틀렸습니다", Toast.LENGTH_SHORT).show()
