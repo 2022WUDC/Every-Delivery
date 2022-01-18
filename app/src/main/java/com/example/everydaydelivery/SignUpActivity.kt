@@ -13,7 +13,7 @@ import com.google.firebase.auth.*
 import com.google.firebase.database.FirebaseDatabase
 import java.util.concurrent.TimeUnit
 
-class SignUpActivity2 : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity() {
 
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
@@ -34,7 +34,7 @@ class SignUpActivity2 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up2)
+        setContentView(R.layout.activity_sign_up)
 
 
         firebaseAuth = FirebaseAuth.getInstance()

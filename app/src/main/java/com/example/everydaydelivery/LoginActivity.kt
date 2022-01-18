@@ -10,7 +10,6 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 
 class LoginActivity : AppCompatActivity() {
 
@@ -75,7 +74,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "no logout", Toast.LENGTH_SHORT).show()
             }
 
-            var intent = Intent(this, SignUpActivity2::class.java)
+            var intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
 
