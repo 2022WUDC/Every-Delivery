@@ -24,6 +24,12 @@
         <!-- android:name=".DeliveryActivity" -->
         <!-- android:exported="false" /> -->
         <activity
+            android:name=".HomeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".DeliveryActivity"
+            android:exported="false" />
+        <activity
             android:name=".FindActivity"
             android:exported="false" />
         <activity
