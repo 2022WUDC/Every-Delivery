@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EverydayDelivery">
         <activity
+            android:name=".FindActivity"
+            android:exported="false" />
+        <activity
             android:name=".SignUpActivity2"
             android:exported="false" />
         <activity

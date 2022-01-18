@@ -36,6 +36,7 @@ class SignUpActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up2)
 
+
         firebaseAuth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
         val dbReference = database.reference
@@ -48,9 +49,8 @@ class SignUpActivity2 : AppCompatActivity() {
         edt_passwd = findViewById(R.id.edt_passwd)
         edt_passwd_chk = findViewById(R.id.edt_passwd_chk)
         edt_phone = findViewById(R.id.edt_phone)
-        edt_phone_check_num = findViewById(R.id.edt_cert_chk)
+        edt_phone_check_num = findViewById(R.id.edt_phone_check_num)
         btn_phone_chk = findViewById(R.id.btn_phone_chk)
-        btn_cert_chk = findViewById(R.id.btn_cert_chk)
         btn_sign_up = findViewById(R.id.btn_sign_up)
 
         // 인증번호 전송

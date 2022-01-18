@@ -17,7 +17,8 @@ class LoginActivity : AppCompatActivity() {
     lateinit var etEmail: EditText
     lateinit var etPassword: EditText
     lateinit var btnLogin: Button
-    lateinit var btnSignup: Button
+    lateinit var tvSignup: TextView
+    lateinit var tvFind: TextView
 
     lateinit var firebaseAuth: FirebaseAuth
 
@@ -31,9 +32,8 @@ class LoginActivity : AppCompatActivity() {
         etEmail = findViewById(R.id.editText_email)
         etPassword = findViewById(R.id.editText_pw)
         btnLogin = findViewById(R.id.button_login)
-        btnSignup = findViewById(R.id.button_signup)
-
-
+        tvSignup = findViewById(R.id.textview_signup)
+        tvFind = findViewById(R.id.textview_find_id_pw)
 
 
         btnLogin.setOnClickListener {
@@ -61,7 +61,13 @@ class LoginActivity : AppCompatActivity() {
         }
 
 
-        btnSignup.setOnClickListener{
+        tvFind.setOnClickListener{
+            var intent = Intent(this, FindActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        tvSignup.setOnClickListener{
             if(firebaseAuth.currentUser != null){
                 firebaseAuth.signOut()
                 Toast.makeText(this, "logout", Toast.LENGTH_SHORT).show()
