@@ -11,7 +11,7 @@ data class Order(
     val menuPrice : String? = null,
     val orderRequest : String? = null,
     val storeAddress : String? = null,
-    val time : String? = null,
+    val complete_writing : String? = null,
     val totalPrice : String? = null,
     val uid : String? = null
 )
