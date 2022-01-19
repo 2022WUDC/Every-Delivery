@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import com.google.firebase.database.*
+import com.google.firebase.database.ktx.getValue
 import java.util.Arrays.toString
 import java.util.Objects.toString
 import java.util.concurrent.TimeUnit
@@ -92,9 +93,14 @@ class FindIdFragment : Fragment() {
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
+                Toast.makeText(activity, "인증 번호 전송를 전송하였습니다.", Toast.LENGTH_LONG).show()
                 Log.d("TAG", "onCodeSent:$verificationId")
                 storedVerificationId = verificationId
+
+                btnFindId_check.isEnabled = true
+                btnFindId_check.setBackgroundColor(ContextCompat.getColor(requireActivity().applicationContext, R.color.bg_orange))
             }
+
         }
 
         btnFindId_authNum.setOnClickListener{
@@ -123,30 +129,38 @@ class FindIdFragment : Fragment() {
 
             userQuery.addValueEventListener(object: ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val email = snapshot.child("email").getValue()
 
-                    if (email != null){
-                        etFindId_phone.visibility = View.GONE
-                        etFindId_authNum.visibility = View.GONE
-                        btnFindId_authNum.visibility = View.GONE
-                        btnFindId_check.visibility = View.GONE
-                        btnFindId.visibility = View.GONE
+                    var snap: MutableIterable<DataSnapshot> = snapshot.children
+                    for (snap2 in snap) {
+                        val data = snap2.getValue<Email>()
+                        val email = data?.email
 
-                        textView2.text = email.toString()
-                        textView1.visibility = View.VISIBLE
-                        textView2.visibility = View.VISIBLE
-                        textView3.visibility = View.VISIBLE
-                        btnLogin.visibility = View.VISIBLE
+                        Log.d("Emaillll : ", email.toString())
 
-                        val user = firebaseAuth.currentUser!!
+                        if (email != null){
+                            etFindId_phone.visibility = View.GONE
+                            etFindId_authNum.visibility = View.GONE
+                            btnFindId_authNum.visibility = View.GONE
+                            btnFindId_check.visibility = View.GONE
+                            btnFindId.visibility = View.GONE
 
-                        user.delete()
-                            .addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    Log.d(TAG, "User account deleted.")
+                            textView2.text = email.toString()
+                            textView1.visibility = View.VISIBLE
+                            textView2.visibility = View.VISIBLE
+                            textView3.visibility = View.VISIBLE
+                            btnLogin.visibility = View.VISIBLE
+
+                            val user = firebaseAuth.currentUser!!
+
+                            user.delete()
+                                .addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        Log.d(TAG, "User account deleted.")
+                                    }
                                 }
-                            }
+                        }
                     }
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -191,8 +205,6 @@ class FindIdFragment : Fragment() {
             phone = "+82" + phone.substring(1)
             Log.d("TAG", "$phone")
             sendVerificationcode(phone)
-            btnFindId_check.isEnabled = true
-            btnFindId_check.setBackgroundColor(ContextCompat.getColor(requireActivity().applicationContext, R.color.bg_orange))
         } else {
             Toast.makeText(activity, "전화번호를 입력하세요.", Toast.LENGTH_SHORT).show()
         }

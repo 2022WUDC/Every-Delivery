@@ -24,3 +24,7 @@ data class CurrentOrder(
     val storeAddress : String? = null,
     val uid : String? = null
 )
+
+data class Email(
+    val email: String? = null
+)
