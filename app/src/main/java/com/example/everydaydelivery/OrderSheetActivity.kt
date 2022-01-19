@@ -2,7 +2,6 @@ package com.example.everydaydelivery
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageButton
@@ -10,7 +9,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
 
 class OrderSheetActivity : AppCompatActivity() {
 

@@ -1,14 +1,15 @@
 package com.example.everydaydelivery
 
+import android.content.Intent
 import android.content.ContentValues
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,12 +21,16 @@ import com.google.firebase.ktx.Firebase
 
 
 class DeliveryFragment : Fragment() {
-
     companion object{
         fun newInstance() : DeliveryExFragment{
             return DeliveryExFragment()
         }
     }
+
+    lateinit var uid : String
+    lateinit var cardview_request:CardView
+    lateinit var cardView_chat: CardView
+    lateinit var cardview_myPage: CardView
 
     private lateinit var database: DatabaseReference
     private var order: ArrayList<Order> = arrayListOf()
@@ -34,18 +39,36 @@ class DeliveryFragment : Fragment() {
         super.onAttach(context)
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         // 리사이클러뷰 연결해주기
         database = Firebase.database.reference
         val view = inflater.inflate(R.layout.fragment_delivery, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_delivery)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = RecyclerViewAdapter()
+
+        cardview_request = view.findViewById(R.id.cardview_request)
+        cardView_chat = view.findViewById(R.id.cardview_chat)
+        cardview_myPage = view.findViewById(R.id.cardview_myPage)
+
+        cardview_request.setOnClickListener {
+            var intent = Intent(requireContext(), DeliveryActivity::class.java)
+            startActivity(intent)
+        }
+
+        cardView_chat.setOnClickListener {
+            var intent = Intent(requireContext(), ChatActivity::class.java)
+            intent.putExtra("switch_checked", "true")
+            startActivity(intent)
+        }
+
+        cardview_myPage.setOnClickListener {
+            var intent = Intent(requireContext(), DeliveryMyPageActivity::class.java)
+            startActivity(intent)
+        }
 
         return view
 
@@ -107,7 +130,7 @@ class DeliveryFragment : Fragment() {
             holder.itemView.setOnClickListener {
                 val intent = Intent(context, MessageActivity::class.java)
                 intent.putExtra("destinationUid", holder.uid.text)
-                intent.putExtra("switch_checked", "false")
+                intent.putExtra("switch_checked", "true")
                 context?.startActivity(intent)
             }
 
@@ -117,6 +140,7 @@ class DeliveryFragment : Fragment() {
             return order.size
         }
 
-
     }
+
+
 }

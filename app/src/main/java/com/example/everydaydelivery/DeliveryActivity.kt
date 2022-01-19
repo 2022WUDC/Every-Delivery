@@ -1,5 +1,6 @@
 package com.example.everydaydelivery
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -19,6 +20,8 @@ class DeliveryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_delivery)
+
+        window.statusBarColor = Color.parseColor("#ff6175")
 
         // 파이어베이스 추가
         auth = Firebase.auth

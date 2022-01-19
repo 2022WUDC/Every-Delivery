@@ -5,10 +5,9 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -27,7 +26,10 @@ class OrderActivity : AppCompatActivity() {
     lateinit var edt_DeliveryPrice: EditText
     lateinit var edt_TotalPrice: EditText
     lateinit var edt_OrderRequest: EditText
+    lateinit var btn_back: ImageButton
+    lateinit var layout_request: LinearLayout
 
+    lateinit var imm: InputMethodManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +45,8 @@ class OrderActivity : AppCompatActivity() {
         val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일 HH:MM")
         val curTime = dateFormat.format(Date(time)).toString()
 
+        imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
         edt_StoreAddress = findViewById(R.id.StoreAddress)
         edt_Menu = findViewById(R.id.Menu)
         edt_MenuPrice = findViewById(R.id.MenuPrice)
@@ -50,7 +54,22 @@ class OrderActivity : AppCompatActivity() {
         edt_TotalPrice = findViewById(R.id.TotalPrice)
         edt_OrderRequest = findViewById(R.id.OrderRequest)
         OrderSend = findViewById(R.id.OrderSend)
+        btn_back = findViewById(R.id.btn_back)
+        layout_request = findViewById(R.id.layout_request)
 
+
+        layout_request.setOnClickListener {
+            imm.hideSoftInputFromWindow(edt_StoreAddress.windowToken, 0)
+            imm.hideSoftInputFromWindow(edt_Menu.windowToken, 0)
+            imm.hideSoftInputFromWindow(edt_MenuPrice.windowToken, 0)
+            imm.hideSoftInputFromWindow(edt_DeliveryPrice.windowToken, 0)
+            imm.hideSoftInputFromWindow(edt_TotalPrice.windowToken, 0)
+            imm.hideSoftInputFromWindow(edt_OrderRequest.windowToken, 0)
+        }
+
+        btn_back.setOnClickListener {
+            finish()
+        }
 
         OrderSend.setOnClickListener {
             var storeAddress = edt_StoreAddress.text.toString()

@@ -5,6 +5,12 @@
         android:top="3dp">
         <shape android:shape="rectangle">
             <solid android:color="#DDDDDD" />
+
+            <corners
+                android:bottomLeftRadius="10dp"
+                android:bottomRightRadius="10dp"
+                android:topLeftRadius="10dp"
+                android:topRightRadius="20dp" />
         </shape>
     </item>
     <item
@@ -12,6 +18,12 @@
         android:bottom="3dp">
         <shape android:shape="rectangle">
             <solid android:color="#FFFFFF" />
+
+            <corners
+                android:bottomLeftRadius="10dp"
+                android:bottomRightRadius="10dp"
+                android:topLeftRadius="10dp"
+                android:topRightRadius="20dp" />
         </shape>
     </item>
 </layer-list>

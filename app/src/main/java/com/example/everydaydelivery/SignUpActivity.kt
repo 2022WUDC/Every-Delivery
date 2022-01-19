@@ -2,6 +2,7 @@ package com.example.everydaydelivery
 
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -41,6 +42,8 @@ class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+
+        window.setStatusBarColor(Color.WHITE)
 
         firebaseAuth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()

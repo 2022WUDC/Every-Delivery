@@ -157,7 +157,7 @@ class DeliveryExFragment : Fragment() {
             holder.itemView.setOnClickListener {
                 val intent = Intent(context, MessageActivity::class.java)
                 intent.putExtra("destinationUid", holder.uid.text)
-                intent.putExtra("switch_checked", "false")
+                intent.putExtra("switch_checked", "true")
                 context?.startActivity(intent)
             }
 

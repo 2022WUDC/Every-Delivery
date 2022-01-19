@@ -2,6 +2,7 @@ package com.example.everydaydelivery
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Layout
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
@@ -25,6 +27,7 @@ class ChatFragment : Fragment() {
 
     lateinit var etFindId_phone: EditText
     lateinit var switch_checked: String
+    private lateinit var toolbar: Toolbar
 
     companion object{
         fun newInstance() : ChatFragment {
@@ -53,10 +56,13 @@ class ChatFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.chatfragment_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = RecyclerViewAdapter()
-        val layout = view.findViewById<LinearLayout>(R.id.chat_fragment_layout)
+        toolbar = view.findViewById(R.id.toolbar_chat)
+//        val layout = view.findViewById<LinearLayout>(R.id.chat_fragment_layout)
 
-        if (switch_checked == "false") {
-            layout.setBackgroundResource(R.drawable.gradation_pink)
+        if (switch_checked == "true") {
+            toolbar.setBackgroundResource(R.drawable.gradation_pink)
+        } else {
+            toolbar.setBackgroundResource(R.drawable.gradation_orange)
         }
 
         return view

@@ -1,81 +1,48 @@
 package com.example.everydaydelivery
 
-
-import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
-import java.lang.reflect.Array.newInstance
-
-
+import android.widget.Switch
+import androidx.appcompat.widget.Toolbar
 
 class MainActivity : AppCompatActivity() {
-    lateinit var tvEmail: TextView
-    lateinit var firebaseAuth:FirebaseAuth
 
-    // 주문하기, 배달하기 버튼
-    lateinit var order: Button
-    lateinit var delivery: Button
-    lateinit var btn_user: Button
-    lateinit var btn_chat: Button
-    lateinit var home: Button
-    lateinit var mypage: Button
+    lateinit var toolbar: Toolbar
+
+    lateinit var switch: Switch
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        firebaseAuth = FirebaseAuth.getInstance()
+        toolbar = findViewById(R.id.toolbar_mode)
+        switch = findViewById(R.id.switch_homeMode)
 
-        tvEmail = findViewById(R.id.textView_email)
-        tvEmail.text = firebaseAuth.currentUser?.email
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.frameLayout_home, OrderFragment())
+            .commit()
 
-        order = findViewById(R.id.order)
-        delivery = findViewById(R.id.delivery)
-        btn_user = findViewById(R.id.btn_user)
-        btn_chat = findViewById(R.id.btn_chat)
-        home = findViewById(R.id.home)
-        mypage = findViewById(R.id.mypage)
+        switch.setOnCheckedChangeListener{ buttonView, isChecked ->
+            if (isChecked) {
+                toolbar.setBackground(getDrawable(R.drawable.gradation_pink))
+                window.statusBarColor = Color.parseColor("#ff6175")
 
-        // 주문하기 버튼을 눌렀을 때
-        order.setOnClickListener {
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frameLayout_home, DeliveryFragment())
+                    .commit()
+            } else {
+                toolbar.setBackground(getDrawable(R.drawable.gradation_orange))
+                window.statusBarColor = Color.parseColor("#ffaa00")
 
-            // deliveryActivity로 이동
-            // 주문하기 페이지로 이동하는 것으로 수정해야 함
-            val intent = Intent(this, OrderActivity::class.java)
-            startActivity(intent)
-        }
 
-        // 배달하기 버튼을 눌렀을 때
-        delivery.setOnClickListener {
-
-            // deliveryActivity로 이동
-            val intent = Intent(this, DeliveryActivity::class.java)
-            startActivity(intent)
-        }
-
-        btn_user.setOnClickListener {
-            val intent = Intent(this, PeopleActivty::class.java)
-            startActivity(intent)
-        }
-
-        btn_chat.setOnClickListener {
-            val intent = Intent(this, ChatActivity::class.java)
-            startActivity(intent)
-        }
-
-        home.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-        }
-
-        mypage.setOnClickListener {
-            val intent = Intent(this, OrderMyPageActivity::class.java)
-            startActivity(intent)
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frameLayout_home, OrderFragment())
+                    .commit()
+            }
         }
 
     }

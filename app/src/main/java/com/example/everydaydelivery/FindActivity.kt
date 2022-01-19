@@ -1,5 +1,6 @@
 package com.example.everydaydelivery
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
@@ -20,6 +21,9 @@ class FindActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_find)
+
+        window.setStatusBarColor(Color.WHITE)
+
 
         btn_back = findViewById(R.id.btn_back)
 

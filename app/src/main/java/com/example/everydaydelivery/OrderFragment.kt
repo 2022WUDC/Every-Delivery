@@ -17,8 +17,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
-import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.activity_main.*
 import net.daum.android.map.MapActivity
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -90,7 +88,7 @@ class OrderFragment : Fragment() {
 
         cardview_chat.setOnClickListener {
             var intent = Intent(requireContext(), ChatActivity::class.java)
-            intent.putExtra("switch_checked", false)
+            intent.putExtra("switch_checked", "false")
             startActivity(intent)
         }
 

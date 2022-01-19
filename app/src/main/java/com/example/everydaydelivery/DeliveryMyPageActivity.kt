@@ -1,5 +1,6 @@
 package com.example.everydaydelivery
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -41,6 +42,8 @@ class DeliveryMyPageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_delivery_my_page)
+
+        window.statusBarColor = Color.parseColor("#ff6175")
 
         firebaseAuth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()

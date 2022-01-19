@@ -2,6 +2,7 @@ package com.example.everydaydelivery
 
 import android.annotation.SuppressLint
 import android.content.DialogInterface
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -9,10 +10,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +22,7 @@ import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import androidx.appcompat.widget.Toolbar
 
 class MessageActivity : AppCompatActivity() {
 
@@ -38,6 +37,8 @@ class MessageActivity : AppCompatActivity() {
     private lateinit var imageView: Button
     private lateinit var info: ImageView
     private lateinit var send_button: Button
+    private lateinit var toolbar: Toolbar
+    private lateinit var btn_back: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,13 +56,24 @@ class MessageActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.messageActivity_recyclerview)
         topName = findViewById(R.id.messageActivity_textView_topName)
         info = findViewById(R.id.messageActivity_imageView_info)
-        layout = findViewById(R.id.linearLayout)
         send_button = findViewById(R.id.messageActivity_ImageView)
+        btn_back = findViewById(R.id.btn_back)
+        toolbar = findViewById(R.id.toolbar_chat)
+
 
         val switch_checked = intent.getStringExtra("switch_checked").toString()
-        if (switch_checked == "false") {
-            layout.setBackgroundResource(R.drawable.gradation_pink)
+        if (switch_checked == "true") {
+            toolbar.setBackgroundResource(R.drawable.gradation_pink)
             send_button.setBackgroundResource(R.drawable.radius_button_pink)
+            window.statusBarColor = Color.parseColor("#ff6175")
+        } else {
+            toolbar.setBackgroundResource(R.drawable.gradation_orange)
+            send_button.setBackgroundResource(R.drawable.radius_button_orange)
+            window.statusBarColor = Color.parseColor("#ffaa00")
+        }
+
+        btn_back.setOnClickListener{
+            finish()
         }
 
         info.setOnClickListener {
