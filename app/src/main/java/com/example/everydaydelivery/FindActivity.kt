@@ -2,6 +2,7 @@ package com.example.everydaydelivery
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -10,13 +11,21 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class FindActivity : AppCompatActivity() {
+    lateinit var btn_back: ImageButton
     lateinit var tablayout: TabLayout
     lateinit var viewpager: ViewPager2
+
     var PAGE_CNT = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_find)
+
+        btn_back = findViewById(R.id.btn_back)
+
+        btn_back.setOnClickListener {
+            finish()
+        }
 
         tablayout = findViewById(R.id.tablayout_find)
         viewpager = findViewById(R.id.viewpager2_find)

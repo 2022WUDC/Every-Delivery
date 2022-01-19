@@ -1,17 +1,21 @@
 package com.example.everydaydelivery
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
+import android.view.MotionEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+
 
 class LoginActivity : AppCompatActivity() {
+
+    lateinit var layout: LinearLayout
 
     lateinit var etEmail: EditText
     lateinit var etPassword: EditText
@@ -20,20 +24,29 @@ class LoginActivity : AppCompatActivity() {
     lateinit var tvFind: TextView
 
     lateinit var firebaseAuth: FirebaseAuth
-
+    lateinit var imm: InputMethodManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+
         firebaseAuth = FirebaseAuth.getInstance()
 
+        imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        layout = findViewById(R.id.layout_login)
         etEmail = findViewById(R.id.editText_email)
         etPassword = findViewById(R.id.editText_pw)
         btnLogin = findViewById(R.id.button_login)
         tvSignup = findViewById(R.id.textview_signup)
         tvFind = findViewById(R.id.textview_find_id_pw)
 
+
+        layout.setOnClickListener {
+            imm.hideSoftInputFromWindow(etEmail.windowToken, 0)
+            imm.hideSoftInputFromWindow(etPassword.windowToken, 0)
+        }
 
         btnLogin.setOnClickListener {
             var email = etEmail.text.toString()
@@ -47,7 +60,6 @@ class LoginActivity : AppCompatActivity() {
                         if (task.isSuccessful) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success")
-//                            val user = firebaseAuth.currentUser
                             var intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
                         } else {
@@ -69,9 +81,6 @@ class LoginActivity : AppCompatActivity() {
         tvSignup.setOnClickListener{
             if(firebaseAuth.currentUser != null){
                 firebaseAuth.signOut()
-                Toast.makeText(this, "logout", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "no logout", Toast.LENGTH_SHORT).show()
             }
 
             var intent = Intent(this, SignUpActivity::class.java)
@@ -79,35 +88,4 @@ class LoginActivity : AppCompatActivity() {
         }
 
     }
-
-
-
-//            firebaseAuth.createUserWithEmailAndPassword(email, password) // 회원 가입
-//                .addOnCompleteListener {
-//                        result ->
-//                    if(result.isSuccessful){
-//                        Toast.makeText(this,"회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
-//                        if(firebaseAuth.currentUser!=null){
-//                            var intent = Intent(this, MainActivity::class.java)
-//                            startActivity(intent)
-//                        }
-//                    }
-//                    else if(result.exception?.message.isNullOrEmpty()){
-//                        Toast.makeText(this,"오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
-//                    }
-//                    else{
-//                        login(email, password)
-//                    }
-//                }
-
-//    fun login(email:String, password:String){
-//        firebaseAuth.signInWithEmailAndPassword(email, password) // 로그인
-//            .addOnCompleteListener {
-//                    result->
-//                if(result.isSuccessful){
-//                    var intent = Intent(this, MainActivity::class.java)
-//                    startActivity(intent)
-//                }
-//            }
-//    }
 }

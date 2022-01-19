@@ -8,10 +8,33 @@
     tools:context=".FindActivity"
     android:orientation="vertical">
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:backgroundTint="#00ff0000"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:fontFamily="@font/scdream5"
+            android:text="이메일 / 비밀번호 찾기"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tablayout_find"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/scdream5"
+        app:tabBackground="@color/bg_orange"
         tools:ignore="MissingConstraints" />
 
     <androidx.viewpager2.widget.ViewPager2

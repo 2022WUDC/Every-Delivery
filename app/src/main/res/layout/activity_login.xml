@@ -1,44 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:id="@+id/layout_login"
     tools:context=".LoginActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:fontFamily="@font/scdream5"
+            android:text="로그인"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
 
     <EditText
         android:id="@+id/editText_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:paddingStart="15dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/bg_login_input"
         android:ems="10"
         android:hint="이메일"
+        android:textSize="15sp"
+        android:fontFamily="@font/scdream5"
         android:inputType="textEmailAddress" />
 
 
     <EditText
         android:id="@+id/editText_pw"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:paddingStart="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_login_input"
         android:ems="10"
         android:hint="비밀번호"
+        android:textSize="15sp"
+        android:fontFamily="@font/scdream5"
         android:inputType="textPassword" />
 
 
     <Button
         android:id="@+id/button_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="ffaa00"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:paddingStart="10dp"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="#ffaa00"
         android:ems="12"
         android:gravity="center"
-        android:text="로그인" />
+        android:text="로그인"
+        android:textSize="15sp"
+        android:fontFamily="@font/scdream5" />
+
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <TextView
@@ -46,16 +78,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="아이디 / 비밀번호 찾기"
-            android:textSize="13dp" />
+            android:textSize="13dp"
+            android:textColor="#707070"
+            android:fontFamily="@font/scdream5"
+            android:text="아이디 / 비밀번호 찾기" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:gravity="center"
-            android:text="|"
-            android:textSize="13dp" />
+            android:textSize="13dp"
+            android:textColor="#707070"
+            android:fontFamily="@font/scdream5"
+            android:text="|" />
 
         <TextView
             android:id="@+id/textview_signup"
@@ -63,8 +99,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:gravity="center"
-            android:text="회원가입"
-            android:textSize="13dp" />
+            android:textSize="13dp"
+            android:textColor="#707070"
+            android:fontFamily="@font/scdream5"
+            android:text="회원가입" />
 
     </LinearLayout>
 

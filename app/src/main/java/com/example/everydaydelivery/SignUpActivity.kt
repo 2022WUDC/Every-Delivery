@@ -4,10 +4,11 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import com.google.firebase.database.FirebaseDatabase
@@ -20,6 +21,11 @@ class SignUpActivity : AppCompatActivity() {
 
     lateinit var storedVerificationId: String
     lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
+
+    lateinit var imm: InputMethodManager
+
+    lateinit var layout: ConstraintLayout
+    lateinit var btn_back: ImageButton
 
     lateinit var edt_name: EditText
     lateinit var edt_nickname: EditText
@@ -36,12 +42,15 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-
         firebaseAuth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
         val dbReference = database.reference
         val userRef = dbReference.child("users")
 
+        imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        layout = findViewById(R.id.layout_signup)
+        btn_back = findViewById(R.id.btn_back)
 
         edt_name = findViewById(R.id.edt_name)
         edt_nickname = findViewById(R.id.edt_nickname)
@@ -54,10 +63,27 @@ class SignUpActivity : AppCompatActivity() {
         btn_phone_chk = findViewById(R.id.btn_phone_chk)
         btn_sign_up = findViewById(R.id.btn_sign_up)
 
+
+        layout.setOnClickListener {
+            imm.hideSoftInputFromWindow(edt_name.windowToken, 0)
+            imm.hideSoftInputFromWindow(edt_nickname.windowToken, 0)
+            imm.hideSoftInputFromWindow(edt_id.windowToken, 0)
+            imm.hideSoftInputFromWindow(edt_passwd.windowToken, 0)
+            imm.hideSoftInputFromWindow(edt_passwd_chk.windowToken, 0)
+            imm.hideSoftInputFromWindow(edt_phone.windowToken, 0)
+            imm.hideSoftInputFromWindow(edt_phone_check_num.windowToken, 0)
+        }
+
+
+        btn_back.setOnClickListener {
+            finish()
+        }
+
+
         // 인증번호 전송
         btn_phone_chk.setOnClickListener {
             phoneCheck()
-            btn_cert_chk.isEnabled = true
+            imm?.hideSoftInputFromWindow(edt_phone.windowToken, 0)
         }
 
 
@@ -69,7 +95,7 @@ class SignUpActivity : AppCompatActivity() {
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
-                Toast.makeText(applicationContext, "Failed", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "인증 번호 전송에 실패하였습니다.", Toast.LENGTH_LONG).show()
             }
 
             override fun onCodeSent(
@@ -83,6 +109,8 @@ class SignUpActivity : AppCompatActivity() {
 
         //인증번호 확인
         btn_cert_chk.setOnClickListener {
+            imm?.hideSoftInputFromWindow(btn_cert_chk.windowToken, 0)
+
             var check_num = edt_phone_check_num.text.toString()
             if (!check_num.isEmpty()) {
                 val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(
@@ -95,6 +123,8 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         btn_sign_up.setOnClickListener {
+            imm?.hideSoftInputFromWindow(btn_cert_chk.windowToken, 0)
+
             var name = edt_name.text.toString()
             var nickname = edt_nickname.text.toString()
             var email = edt_id.text.toString()
@@ -123,8 +153,7 @@ class SignUpActivity : AppCompatActivity() {
                         .addOnCompleteListener { result ->
                             if (result.isSuccessful) {
                                 val user = firebaseAuth.currentUser
-                                Toast.makeText(this, "Authentication Success", Toast.LENGTH_SHORT)
-                                    .show()
+                                Toast.makeText(this, "계정이 생성되었습니다.", Toast.LENGTH_SHORT).show()
 
 
                                 val user_db = userRef.child(user?.uid.toString())
@@ -169,6 +198,8 @@ class SignUpActivity : AppCompatActivity() {
             phone = "+82" + phone.substring(1)
             Log.d("TAG", "$phone")
             sendVerificationcode(phone)
+            btn_cert_chk.isEnabled = true
+            btn_cert_chk.setBackgroundColor(getColor(R.color.bg_orange))
         } else {
             Toast.makeText(this, "전화번호를 입력하세요.", Toast.LENGTH_SHORT).show()
         }
@@ -191,8 +222,9 @@ class SignUpActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     Toast.makeText(this, "인증 되었습니다", Toast.LENGTH_SHORT).show()
                     btn_sign_up.isEnabled = true
-//                    startActivity(Intent(applicationContext, LoginActivity::class.java))
-//                    finish()
+                    btn_cert_chk.setBackgroundColor(getColor(R.color.bg_orange))
+                    startActivity(Intent(applicationContext, LoginActivity::class.java))
+                    finish()
                 } else {
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         Toast.makeText(this, "인증번호가 틀렸습니다", Toast.LENGTH_SHORT).show()
