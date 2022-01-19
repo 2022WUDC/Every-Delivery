@@ -74,7 +74,6 @@ class SignUpActivity : AppCompatActivity() {
             imm.hideSoftInputFromWindow(edt_phone_check_num.windowToken, 0)
         }
 
-
         btn_back.setOnClickListener {
             finish()
         }
