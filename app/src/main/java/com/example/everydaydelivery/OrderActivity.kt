@@ -1,13 +1,18 @@
 package com.example.everydaydelivery
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import java.text.SimpleDateFormat
+
+
 
 class OrderActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
@@ -30,6 +35,7 @@ class OrderActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
         val dbReference = database.reference
         val orderRef = dbReference.child("orders")
+
 
         edt_StoreAddress = findViewById(R.id.StoreAddress)
         edt_Menu = findViewById(R.id.Menu)
@@ -58,6 +64,44 @@ class OrderActivity : AppCompatActivity() {
             } else if (totalPrice.length == 0) {
                 Toast.makeText(this, "최종 금액을 입력하세요.", Toast.LENGTH_SHORT).show()
             } else {
+
+
+                val order = firebaseAuth.currentUser
+
+                val now: Long = System.currentTimeMillis()
+                val dateFormat = SimpleDateFormat("mm월dd일 hh:mm:ss")
+                val time = dateFormat.format(now)
+
+
+                Toast.makeText(this,"complete writing", Toast.LENGTH_SHORT).show()
+
+
+
+                val order_db = orderRef.child(order?.uid.toString()).push()
+                Log.d(TAG, "child.uid : " + order?.uid.toString())
+
+                order_db.child("uid").setValue(order?.uid.toString())
+                Log.d(TAG, "child.uid : " + order?.uid.toString())
+
+                order_db.child("storeAddress").setValue(storeAddress)
+                Log.d(TAG, "child.uid : " + order?.uid.toString())
+
+                order_db.child("menu").setValue(menu)
+                Log.d(TAG, "child.uid : " + order?.uid.toString())
+
+                order_db.child("menuPrice").setValue(menuPrice)
+                Log.d(TAG, "child.uid : " + order?.uid.toString())
+
+                order_db.child("deliveryPrice").setValue(deliveryPrice)
+                Log.d(TAG, "child.uid : " + order?.uid.toString())
+
+                order_db.child("totalPrice").setValue(totalPrice)
+                Log.d(TAG, "child.uid : " + order?.uid.toString())
+
+                order_db.child("orderRequest").setValue(orderRequest)
+                Log.d(TAG, "child.uid : " + order?.uid.toString())
+
+                order_db.child("time").setValue(time)
 
                 val intent = Intent(this, DeliveryActivity::class.java)
                 startActivity(intent)
