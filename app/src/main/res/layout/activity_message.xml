@@ -10,7 +10,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@drawable/gradation_orange"
+        tools:background="@drawable/gradation_orange"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,8 +24,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/scdream5"
-            android:gravity="right
-"
+            android:gravity="right"
             android:text="채팅"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/white"
@@ -42,7 +41,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"
-                android:src="@drawable/ic_baseline_info_24"
+                tools:src="@drawable/ic_baseline_info_24"
                 android:visibility="invisible" />
 
         </LinearLayout>
@@ -69,7 +68,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -81,19 +80,23 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="65dp"
-            android:hint="입력하세요"
             android:fontFamily="@font/scdream4"
+            android:hint="입력하세요"
             android:paddingLeft="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/messageActivity_ImageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <android.widget.Button
             android:id="@+id/messageActivity_ImageView"
             android:layout_width="60dp"
-            android:layout_height="50dp"
+            android:layout_height="43dp"
+
+            android:background="@drawable/radius_button_orange"
             android:text="전송"
+            android:textColor="@color/white"
+            android:fontFamily="@font/scdream4"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

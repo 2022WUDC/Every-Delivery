@@ -17,7 +17,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:backgroundTint="#00ff0000"
-            android:src="@drawable/ic_baseline_arrow_back_ios_24"/>
+            tools:src="@drawable/ic_baseline_arrow_back_ios_24"/>
 
         <TextView
             android:layout_width="wrap_content"
