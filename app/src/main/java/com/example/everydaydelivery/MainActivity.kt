@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var btn_user: Button
     lateinit var btn_chat: Button
     lateinit var home: Button
+    lateinit var mypage: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         btn_user = findViewById(R.id.btn_user)
         btn_chat = findViewById(R.id.btn_chat)
         home = findViewById(R.id.home)
+        mypage = findViewById(R.id.mypage)
 
         // 주문하기 버튼을 눌렀을 때
         order.setOnClickListener {
@@ -65,6 +67,11 @@ class MainActivity : AppCompatActivity() {
 
         home.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+        }
+
+        mypage.setOnClickListener {
+            val intent = Intent(this, OrderMyPageActivity::class.java)
             startActivity(intent)
         }
 

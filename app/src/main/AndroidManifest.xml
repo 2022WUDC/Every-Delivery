@@ -25,6 +25,12 @@
         <!-- android:name=".DeliveryActivity" -->
         <!-- android:exported="false" /> -->
         <activity
+            android:name=".OrderAlarmActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OrderMyPageActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="true" />
         <activity

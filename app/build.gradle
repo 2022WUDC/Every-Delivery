@@ -30,6 +30,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    viewBinding {
+        enabled = true
+    }
     buildFeatures {
         viewBinding true
     }
@@ -48,7 +52,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database-ktx:20.0.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
-
+    implementation "androidx.cardview:cardview:1.0.0"
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.0.0'
     implementation 'com.google.android.gms:play-services-maps:18.0.2'

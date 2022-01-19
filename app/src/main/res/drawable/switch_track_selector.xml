@@ -6,7 +6,7 @@
         android:state_checked="false"/>
 
     <item
-        android:drawable="@drawable/switch_track_deliver"
+        android:drawable="@drawable/switch_track_order"
         android:state_checked="true"/>
 
 </selector>

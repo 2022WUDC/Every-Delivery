@@ -3,21 +3,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingEnd="5dp"
     android:orientation="horizontal">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/textView_state"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
+        android:gravity="center"
         android:background="@drawable/bg_home_my_order_state"
         android:text="작성완료"/>
 
     <LinearLayout
         android:layout_marginStart="10dp"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
@@ -26,11 +29,13 @@
         android:background="@drawable/bg_home_my_order_underline">
 
         <TextView
+            android:id="@+id/textView_timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="오전 10:49"/>
 
         <TextView
+            android:id="@+id/textView_storeName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"

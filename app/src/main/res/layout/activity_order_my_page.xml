@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".OrderMyPageActivity">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_baseline_person_24"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:textSize="10dp"
+            android:text="이름"/>
+
+
+        <TextView
+            android:id="@+id/textview_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:padding="5dp"
+            android:background="@drawable/bg_home_my_order_underline"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:text="주문자"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:textSize="10dp"
+            android:text="닉네임"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_home_my_order_underline">
+
+            <EditText
+                android:id="@+id/eidtText_nickname"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:enabled="false"
+                android:background="@null"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:text="우리) 153153121351313"/>
+
+            <ImageButton
+                android:id="@+id/button_changeNickname"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="#00ff0000"
+                android:src="@drawable/ic_baseline_edit_24" />
+
+            <ImageButton
+                android:id="@+id/button_check1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="#00ff0000"
+                android:visibility="gone"
+                android:src="@drawable/ic_baseline_done_24" />
+
+        </LinearLayout>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:textSize="10dp"
+            android:text="휴대전화번호"/>
+
+
+        <TextView
+            android:id="@+id/textview_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:padding="5dp"
+            android:background="@drawable/bg_home_my_order_underline"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:text="01012341234"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:textSize="10dp"
+            android:text="기본 주소"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_home_my_order_underline">
+
+            <EditText
+                android:id="@+id/editText_address"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="@null"
+                android:enabled="false"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:text="서울 노원구 화랑로 621"/>
+
+            <ImageButton
+                android:id="@+id/button_changeAddress"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="#00ff0000"
+                android:src="@drawable/ic_baseline_edit_24" />
+
+            <ImageButton
+                android:id="@+id/button_check2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="#00ff0000"
+                android:visibility="gone"
+                android:src="@drawable/ic_baseline_done_24" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:textSize="10dp"
+            android:text="가상 계좌 번호"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_home_my_order_underline">
+
+            <EditText
+                android:id="@+id/editText_account"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="@null"
+                android:enabled="false"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:text="우리) 153153121351313"/>
+
+            <ImageButton
+                android:id="@+id/button_changeAccount"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="#00ff0000"
+                android:src="@drawable/ic_baseline_edit_24" />
+
+            <ImageButton
+                android:id="@+id/button_check3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="#00ff0000"
+                android:visibility="gone"
+                android:src="@drawable/ic_baseline_done_24" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

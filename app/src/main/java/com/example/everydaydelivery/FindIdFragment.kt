@@ -111,13 +111,8 @@ class FindIdFragment : Fragment() {
             val userQuery = dbReference.child("users").orderByChild("phone").equalTo(etFindId_phone.text.toString())
 //            Toast.makeText(activity, "db : " + userQuery.toString(), Toast.LENGTH_SHORT).show()
 
-            userQuery.addChildEventListener(object: ChildEventListener{
-                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-//                    Log.d(TAG, "add key : " + snapshot)
-//                    Toast.makeText(activity, "add key : " + snapshot, Toast.LENGTH_SHORT).show()
-//                    Log.d(TAG, "email : " + snapshot.child("email").getValue())
-//                    Toast.makeText(activity, "email : " + snapshot.child("email").getValue(), Toast.LENGTH_SHORT).show()
-
+            userQuery.addValueEventListener(object: ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
                     val email = snapshot.child("email").getValue()
 
                     if (email != null){
@@ -141,46 +136,34 @@ class FindIdFragment : Fragment() {
                                     Log.d(TAG, "User account deleted.")
                                 }
                             }
-
-
                     }
                 }
 
-                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-
-                }
-
-                override fun onChildRemoved(snapshot: DataSnapshot) {
-
-                }
-
-                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-
-                }
-
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(activity, "Error", Toast.LENGTH_SHORT).show()
+                    TODO("Not yet implemented")
                 }
 
             })
 
-            if(btnLogin.isVisible == false) {
-                Toast.makeText(activity, "아이디를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show()
 
-                val user = firebaseAuth.currentUser!!
 
-                user.delete()
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            Log.d(TAG, "User account deleted.")
-                            etFindId_phone.text = null
-                            etFindId_authNum.text = null
-                            btnFindId_check.isEnabled = false
-                            btnFindId.isEnabled = false
-                        } else{
-                            Log.d(TAG, "User account deleted is Error.")
-                        }
+        if(btnLogin.isVisible == false) {
+            Toast.makeText(activity, "아이디를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show()
+
+            val user = firebaseAuth.currentUser!!
+
+            user.delete()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Log.d(TAG, "User account deleted.")
+                        etFindId_phone.text = null
+                        etFindId_authNum.text = null
+                        btnFindId_check.isEnabled = false
+                        btnFindId.isEnabled = false
+                    } else{
+                        Log.d(TAG, "User account deleted is Error.")
                     }
+                }
             }
         }
 
