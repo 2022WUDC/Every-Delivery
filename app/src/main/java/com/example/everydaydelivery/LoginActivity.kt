@@ -23,9 +23,6 @@ class LoginActivity : AppCompatActivity() {
     lateinit var tvSignup: TextView
     lateinit var tvFind: TextView
 
-    // 지도 확인용
-    lateinit var btnMap: Button
-
     lateinit var firebaseAuth: FirebaseAuth
     lateinit var imm: InputMethodManager
 
@@ -43,9 +40,6 @@ class LoginActivity : AppCompatActivity() {
         btnLogin = findViewById(R.id.button_login)
         tvSignup = findViewById(R.id.textview_signup)
         tvFind = findViewById(R.id.textview_find_id_pw)
-
-        // 지도 확인용
-        btnMap = findViewById(R.id.button)
 
         layout.setOnClickListener {
             imm.hideSoftInputFromWindow(etEmail.windowToken, 0)
@@ -73,12 +67,6 @@ class LoginActivity : AppCompatActivity() {
                         }
                     }
             }
-        }
-
-        // 지도 확인용
-        btnMap.setOnClickListener {
-            var intent = Intent(this, MapActivity::class.java)
-            startActivity(intent)
         }
 
         tvFind.setOnClickListener{
