@@ -37,6 +37,7 @@ class OrderActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
         val dbReference = database.reference
         val orderRef = dbReference.child("orders")
+        val uid = firebaseAuth.currentUser?.uid.toString()
 
         val time = System.currentTimeMillis()
         val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일 HH:MM")
@@ -73,10 +74,7 @@ class OrderActivity : AppCompatActivity() {
 
                 val order = firebaseAuth.currentUser
 
-
                 Toast.makeText(this,"complete writing", Toast.LENGTH_SHORT).show()
-
-
 
                 val order_db = orderRef.child(order?.uid.toString()).push()
                 Log.d(TAG, "child.uid : " + order?.uid.toString())
@@ -105,6 +103,12 @@ class OrderActivity : AppCompatActivity() {
                 order_db.child("complete_writing").setValue(curTime)
 
                 val intent = Intent(this, OrderSheetActivity::class.java)
+                intent.putExtra("storeAddress", storeAddress)
+                intent.putExtra("menu", menu)
+                intent.putExtra("menuPrice", menuPrice)
+                intent.putExtra("deliveryPrice", deliveryPrice)
+                intent.putExtra("totalPrice", totalPrice)
+                intent.putExtra("complete_writing", orderRequest)
                 startActivity(intent)
             }
 

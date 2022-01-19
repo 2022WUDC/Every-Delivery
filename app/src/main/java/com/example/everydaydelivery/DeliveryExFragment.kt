@@ -1,5 +1,6 @@
 package com.example.everydaydelivery
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -103,7 +104,6 @@ class DeliveryExFragment : Fragment() {
                             data.getValue<Order>()?.let { order.add(it) }
                         }
 
-                        //Toast.makeText(activity, "${data}", Toast.LENGTH_LONG).show()
                     }
                     notifyDataSetChanged()
                 }
@@ -130,7 +130,8 @@ class DeliveryExFragment : Fragment() {
             holder.totalPrice.text = order[position].totalPrice
             holder.store.text = order[position].storeAddress
             holder.time.text = order[position].time.toString()
-            Toast.makeText(activity, "하나 성공 order개수: ${order.size} 메뉴: ${holder.menu.text} ", Toast.LENGTH_SHORT ).show()
+            //Toast.makeText(activity, "하나 성공 order개수: ${order.size} 메뉴: ${holder.menu.text} ", Toast.LENGTH_SHORT ).show()
+            //Log.d(TAG, "시간알림: ${holder.time.text}")
 
         }
 

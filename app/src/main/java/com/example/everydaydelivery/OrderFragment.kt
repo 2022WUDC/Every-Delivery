@@ -320,62 +320,27 @@ class OrderFragment : Fragment() {
 //
 //                    val orderAdapter = OrderListViewAdapter(requireContext(), orderList)
 //                    listView.adapter = orderAdapter
-//
 //                } else {
-//                    Log.d("Order List state : ", "data 없음")
 //                    listView.visibility = View.GONE
 //                    tvNoneOrder.visibility = View.VISIBLE
 //                }
+//            }
+//
+//            override fun onChildRemoved(snapshot: DataSnapshot) {
+//
+//            }
+//
+//            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
 //
 //            }
 //
 //            override fun onCancelled(error: DatabaseError) {
-//                TODO("Not yet implemented")
+//                Toast.makeText(activity, "Error", Toast.LENGTH_SHORT).show()
 //            }
 //
 //        })
 
 
         return view
-    }
-
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun timeCalc(timeData: String): String {
-        val todayDate = System.currentTimeMillis()
-        var dataFormat = SimpleDateFormat("yyyy년 MM월 dd일")
-        val today = dataFormat.format(Date(todayDate)).toString()
-        var date:String = timeData.substring(0, 12)
-
-        Log.d("now Date : ", today)
-        Log.d("request Date : ", date)
-
-        if (today == date){
-            return ""
-        }
-
-        var time:String = timeData.substring(14)
-        var meridiem:String = ""
-        var hour:String = time.substring(0, 1)
-        var minute:String = time.substring(2, 4)
-
-        if (hour.toInt() == 12){
-            meridiem = "오후 "
-        }
-        else if (hour.toInt() == 24) {
-            meridiem = "오전 "
-            hour = (hour.toInt() - 12).toString()
-        }
-        else if (hour.toInt() > 12){
-            meridiem = "오후 "
-            hour = (hour.toInt() - 12).toString()
-        }
-        else {
-            meridiem = "오전 "
-        }
-
-        var timeResult: String = meridiem + hour + minute
-
-        return timeResult
     }
 }
