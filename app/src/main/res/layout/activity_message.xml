@@ -10,7 +10,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#FFAE37"
+        android:background="@drawable/gradation_orange"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,12 +18,14 @@
 
         <TextView
             android:id="@+id/messageActivity_textView_topName"
-            android:layout_width="wrap_content"
+            android:layout_width="210dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginLeft="15dp"
             android:layout_marginBottom="5dp"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/scdream5"
+            android:gravity="right
+"
             android:text="채팅"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/white"
@@ -40,8 +42,8 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"
-                android:visibility="invisible"
-                android:src="@drawable/ic_baseline_info_24" />
+                android:src="@drawable/ic_baseline_info_24"
+                android:visibility="invisible" />
 
         </LinearLayout>
     </LinearLayout>
@@ -73,15 +75,15 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
-
             android:id="@+id/messageActivity_editText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
-
             android:layout_marginStart="5dp"
-
             android:layout_marginEnd="65dp"
+            android:hint="입력하세요"
+            android:fontFamily="@font/scdream4"
+            android:paddingLeft="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/messageActivity_ImageView"
             app:layout_constraintStart_toStartOf="parent"
