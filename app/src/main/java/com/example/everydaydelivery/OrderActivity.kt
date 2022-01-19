@@ -102,7 +102,7 @@ class OrderActivity : AppCompatActivity() {
                 order_db.child("orderRequest").setValue(orderRequest)
                 Log.d(TAG, "child.uid : " + order?.uid.toString())
 
-                order_db.child("time").setValue(curTime)
+                order_db.child("complete_writing").setValue(curTime)
 
                 val intent = Intent(this, OrderSheetActivity::class.java)
                 startActivity(intent)
