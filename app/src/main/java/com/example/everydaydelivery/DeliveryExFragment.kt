@@ -104,7 +104,6 @@ class DeliveryExFragment : Fragment() {
                             data.getValue<Order>()?.let { order.add(it) }
                         }
 
-                        //Toast.makeText(activity, "${data}", Toast.LENGTH_LONG).show()
                     }
                     notifyDataSetChanged()
                 }
