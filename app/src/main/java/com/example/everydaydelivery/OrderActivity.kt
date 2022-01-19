@@ -2,12 +2,14 @@ package com.example.everydaydelivery
 
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
@@ -37,7 +39,7 @@ class OrderActivity : AppCompatActivity() {
         val orderRef = dbReference.child("orders")
 
         val time = System.currentTimeMillis()
-        val dateFormat = SimpleDateFormat("MM월dd일 hh:mm")
+        val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일 HH:MM")
         val curTime = dateFormat.format(Date(time)).toString()
 
         edt_StoreAddress = findViewById(R.id.StoreAddress)
@@ -102,7 +104,7 @@ class OrderActivity : AppCompatActivity() {
 
                 order_db.child("time").setValue(curTime)
 
-                val intent = Intent(this, DeliveryActivity::class.java)
+                val intent = Intent(this, OrderSheetActivity::class.java)
                 startActivity(intent)
             }
 
