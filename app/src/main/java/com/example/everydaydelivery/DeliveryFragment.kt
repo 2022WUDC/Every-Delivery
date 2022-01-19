@@ -40,7 +40,6 @@ class DeliveryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
         // 리사이클러뷰 연결해주기
         database = Firebase.database.reference
         val view = inflater.inflate(R.layout.fragment_delivery, container, false)
