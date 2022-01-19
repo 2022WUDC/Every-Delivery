@@ -1,6 +1,7 @@
 package com.example.everydaydelivery
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -12,6 +13,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +35,7 @@ class MessageActivity : AppCompatActivity() {
 
     private lateinit var topName: TextView
     private lateinit var imageView: Button
+    private lateinit var info: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +53,44 @@ class MessageActivity : AppCompatActivity() {
         uid = Firebase.auth.currentUser?.uid.toString()
         recyclerView = findViewById(R.id.messageActivity_recyclerview)
         topName = findViewById(R.id.messageActivity_textView_topName)
+        info = findViewById(R.id.messageActivity_imageView_info)
+
+        info.setOnClickListener {
+            var user: User? = null
+            var dest_name: String? = ""
+            var dest_phone: String? = ""
+            var dest_account: String? = ""
+
+            fireDatabase.child("users").child(destinationUid.toString())
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onCancelled(error: DatabaseError) {
+                    }
+
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        fireDatabase.child("users").child(destinationUid.toString())
+                            .addListenerForSingleValueEvent(object : ValueEventListener {
+                                override fun onCancelled(error: DatabaseError) {
+                                }
+
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    user = snapshot.getValue<User>()
+                                    dest_name = user?.name
+                                    dest_phone = user?.phone
+                                    dest_account = user?.account
+
+                                    val builder = AlertDialog.Builder(this@MessageActivity).setTitle("사용자 정보입니다.").setMessage("이름: $dest_name\n전화번호: $dest_phone\n계좌번호: $dest_account")
+                                        .setPositiveButton(
+                                            "확인",
+                                            DialogInterface.OnClickListener { dialog, which -> Log.d("dialog", "확인 클릭") })
+                                    builder.show()
+                                }
+                            })
+                    }
+
+                })
+
+
+        }
 
         imageView.setOnClickListener {
             Log.d("클릭 시 dest", "$destinationUid")
@@ -120,6 +161,7 @@ class MessageActivity : AppCompatActivity() {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         user = snapshot.getValue<User>()
                         topName.text = user?.name
+                        info.visibility = View.VISIBLE
                         getMessageList()
                     }
                 })

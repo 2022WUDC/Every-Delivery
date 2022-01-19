@@ -110,7 +110,7 @@ class ChatFragment : Fragment() {
             holder.textView_lastMessage.text = chatModel[position].comments[lastMessageKey]?.message
             holder.textView_lastTime.text = chatModel[position].comments[lastMessageKey]?.time
 
-            //채팅창 선책 시 이동
+            //채팅창 선택 시 이동
             holder.itemView.setOnClickListener {
                 val intent = Intent(context, MessageActivity::class.java)
                 intent.putExtra("destinationUid", destinationUsers[position])

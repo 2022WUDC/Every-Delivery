@@ -55,15 +55,17 @@ class FindPasswordFragment : Fragment() {
         btnAuthNum.setOnClickListener{
             val user = firebaseAuth.currentUser
 
-            user!!.sendEmailVerification()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(activity, "확인메일을 보냈습니다", Toast.LENGTH_LONG).show()
-                        btnCheck.isEnabled = true
-                    } else {
-                        Toast.makeText(activity, task.exception.toString(), Toast.LENGTH_LONG).show()
-                    }
-                }
+            resetPassword(etEmail.text.toString())
+
+//            user!!.sendEmailVerification()
+//                .addOnCompleteListener { task ->
+//                    if (task.isSuccessful) {
+//                        Toast.makeText(activity, "확인메일을 보냈습니다", Toast.LENGTH_LONG).show()
+//                        btnCheck.isEnabled = true
+//                    } else {
+//                        Toast.makeText(activity, task.exception.toString(), Toast.LENGTH_LONG).show()
+//                    }
+//                }
         }
 
         btnCheck.setOnClickListener {
@@ -83,5 +85,16 @@ class FindPasswordFragment : Fragment() {
 
 
         return view
+    }
+
+    private fun resetPassword(email:String){
+        firebaseAuth?.sendPasswordResetEmail(email)
+            ?.addOnCompleteListener{ it ->
+                if(it.isSuccessful){
+                    Toast.makeText(activity, "인증번호 전송에 성공하였습니다.", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(activity, "인증번호 전송에 실패하였습니다.", Toast.LENGTH_LONG).show()
+                }
+            }
     }
 }
