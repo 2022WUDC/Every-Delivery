@@ -129,7 +129,7 @@ class DeliveryExFragment : Fragment() {
             holder.menu.text = order[position].menu
             holder.totalPrice.text = order[position].totalPrice
             holder.store.text = order[position].storeAddress
-            holder.time.text = order[position].time
+            holder.time.text = order[position].time.toString()
             Toast.makeText(activity, "하나 성공 order개수: ${order.size} 메뉴: ${holder.menu.text} ", Toast.LENGTH_SHORT ).show()
 
         }
