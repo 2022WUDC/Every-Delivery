@@ -85,6 +85,8 @@ class DeliveryExFragment : Fragment() {
     // 리사이클러뷰 사용
     inner class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.CustomViewHolder>(){
 
+        private val order = ArrayList<Order>()
+
         init {
             val allOrder = Firebase.auth.uid
             FirebaseDatabase.getInstance().reference.child("orders").addValueEventListener(object :
@@ -97,19 +99,17 @@ class DeliveryExFragment : Fragment() {
                     order.clear()
                     for (snap in snapshot.children) {
                         var item: MutableIterable<DataSnapshot> = snap.children
-                        for (item2 in item) {
-                            val data = item2.getValue<Order>()
-                            val menu = data?.menu
-                            //Log.d("ordertag", "$menu")
+                        for (data in item) {
+                            data.getValue<Order>()?.let { order.add(it) }
                         }
 
-                        //order.add(item!!)
                         //Toast.makeText(activity, "${data}", Toast.LENGTH_LONG).show()
                     }
                     notifyDataSetChanged()
                 }
             })
         }
+
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
             return CustomViewHolder(
@@ -139,10 +139,7 @@ class DeliveryExFragment : Fragment() {
         }
     }
 
-//        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-//            var view = LayoutInflater.from(parent.context).inflate(R.layout.delivery_sheet,parent,false)
-//            return ViewHolder(view)
-//        }
+
 //
 //        inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 //
