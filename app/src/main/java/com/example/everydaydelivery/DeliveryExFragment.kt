@@ -78,7 +78,7 @@ class DeliveryExFragment : Fragment() {
         recyclerView.adapter = RecyclerViewAdapter()
 
         return view
-        // 여기까지는 맞게 한 듯 하다
+        // 여기까지는 맞게 한 듯
     }
 
     // 리사이클러뷰 사용
