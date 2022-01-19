@@ -224,9 +224,7 @@ class SignUpActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     Toast.makeText(this, "인증 되었습니다", Toast.LENGTH_SHORT).show()
                     btn_sign_up.isEnabled = true
-                    btn_cert_chk.setBackgroundColor(getColor(R.color.bg_orange))
-                    startActivity(Intent(applicationContext, LoginActivity::class.java))
-                    finish()
+                    btn_sign_up.setBackgroundColor(getColor(R.color.bg_orange))
                 } else {
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         Toast.makeText(this, "인증번호가 틀렸습니다", Toast.LENGTH_SHORT).show()
