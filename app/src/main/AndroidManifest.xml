@@ -49,6 +49,9 @@
             android:name=".OrderActivity"
             android:exported="false" />
         <activity
+            android:name=".OrderSheetActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
