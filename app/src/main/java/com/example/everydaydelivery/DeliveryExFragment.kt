@@ -1,5 +1,6 @@
 package com.example.everydaydelivery
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -124,13 +125,15 @@ class DeliveryExFragment : Fragment() {
             var store: TextView = itemView.findViewById(R.id.arrive_add)
             var time : TextView = itemView.findViewById(R.id.tv_time)
         }
+        
         override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
             holder.deliveryPrice.text = order[position].deliveryPrice
             holder.menu.text = order[position].menu
             holder.totalPrice.text = order[position].totalPrice
             holder.store.text = order[position].storeAddress
             holder.time.text = order[position].time.toString()
-            Toast.makeText(activity, "하나 성공 order개수: ${order.size} 메뉴: ${holder.menu.text} ", Toast.LENGTH_SHORT ).show()
+            //Toast.makeText(activity, "하나 성공 order개수: ${order.size} 메뉴: ${holder.menu.text} ", Toast.LENGTH_SHORT ).show()
+            //Log.d(TAG, "시간알림: ${holder.time.text}")
 
         }
 
