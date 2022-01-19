@@ -14,5 +14,12 @@ data class Order(
     val time : String? = null,
     val totalPrice : String? = null,
     val uid : String? = null
+)
 
+data class CurrentOrder(
+    val complete_writing : String? = null,
+    val request_accept : String? = null,
+    val delivery : String? = null,
+    val complete_delivery : String? = null,
+    val storeAddress : String? = null
 )
