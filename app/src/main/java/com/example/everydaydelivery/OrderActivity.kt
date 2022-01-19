@@ -109,6 +109,7 @@ class OrderActivity : AppCompatActivity() {
                 intent.putExtra("deliveryPrice", deliveryPrice)
                 intent.putExtra("totalPrice", totalPrice)
                 intent.putExtra("complete_writing", orderRequest)
+                intent.putExtra("uid", uid)
                 startActivity(intent)
             }
 

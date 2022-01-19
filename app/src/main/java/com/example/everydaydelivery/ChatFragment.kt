@@ -8,10 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
@@ -70,6 +67,7 @@ class ChatFragment : Fragment() {
         private val chatModel = ArrayList<ChatModel>()
         private var uid : String? = null
         private val destinationUsers : ArrayList<String> = arrayListOf()
+        private lateinit var accept: Button
 
         init {
 

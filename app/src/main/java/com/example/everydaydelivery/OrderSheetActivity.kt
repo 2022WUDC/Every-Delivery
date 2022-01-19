@@ -23,7 +23,8 @@ class OrderSheetActivity : AppCompatActivity() {
     lateinit var tvDeliveryPrice: TextView
     lateinit var tvTotalPrice: TextView
     lateinit var tvOrderRequest: TextView
-    lateinit var uid:String
+    lateinit var tvuid:TextView
+    lateinit var uid: String
 
     lateinit var inputManager: InputMethodManager
 
@@ -44,6 +45,7 @@ class OrderSheetActivity : AppCompatActivity() {
         tvDeliveryPrice = findViewById(R.id.textview_DeliveryPrice)
         tvTotalPrice = findViewById(R.id.textview_TotalPrice)
         tvOrderRequest = findViewById(R.id.textview_OrderRequest)
+        tvuid = findViewById(R.id.textview_uid)
 
         time = intent.getStringExtra("complete_writing").toString()
         Log.d("시간", "$time")
@@ -59,7 +61,7 @@ class OrderSheetActivity : AppCompatActivity() {
         tvDeliveryPrice.text = intent.getStringExtra("deliveryPrice").toString()
         tvTotalPrice.text = intent.getStringExtra("totalPrice").toString()
         tvOrderRequest.text = intent.getStringExtra("complete_writing").toString()
-
+        val uid = intent.getStringExtra("uid").toString()
 
     }
 

@@ -2,15 +2,21 @@ package com.example.everydaydelivery
 
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.everydaydelivery.databinding.DeliverySheetBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
@@ -21,6 +27,13 @@ import com.google.firebase.ktx.Firebase
 class DeliveryExFragment : Fragment() {
     //, androidx.appcompat.widget.SearchView.OnQueryTextListener
 
+//    lateinit var firebaseAuth: FirebaseAuth
+//    lateinit var storedVerificationId: String
+//    private lateinit var database: FirebaseDatabase
+//    lateinit var ref: DatabaseReference
+    lateinit var uid: String
+
+    //lateinit var binding:DeliverySheetBinding
 
     companion object{
         fun newInstance() : DeliveryExFragment{
@@ -41,11 +54,43 @@ class DeliveryExFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+//        binding = DeliverySheetBinding.inflate(inflater, container, false)
+//        return binding.root
+//
+//        binding.acceptButton.setOnClickListener {
+//            Log.d("tag", "acceptButton 클릭")
+//        }
+        // Inflate the layout for this fragment
+//        var view = LayoutInflater.from(activity).inflate(R.layout.fragment_delivery_ex, container, false)
+//
+//        orderlist = arrayListOf<Order>()
+//        mylist = arrayListOf<String>()
+//
+//        // 파이어베이스 인증 객체
+//        firebaseAuth = FirebaseAuth.getInstance()
+//
+//        //database = Firebase.database.reference 를 써야 하나?
+//        database = FirebaseDatabase.getInstance()
+//        val dbReference = database.reference
+//        val userRef = dbReference.child("orders")
+//        ref = userRef
+//
+//        dtextview1 = view.findViewById(R.id.arrive_add)
+//        dtextview2 = view.findViewById(R.id.tv_deliveryprice)
+//        dtextview3 = view.findViewById(R.id.tv_name)
+//
+//        // 홈의 리사이클러뷰와 연결
+//        recyclerview_order = view.findViewById(R.id.recyclerview_order)
+//        recyclerview_order.adapter = RecyclerViewAdapter()
+//        recyclerview_order.layoutManager = LinearLayoutManager(activity)
+
 
         // 리사이클러뷰 연결해주기
         database = Firebase.database.reference
         val view = inflater.inflate(R.layout.fragment_delivery_ex, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview_order)
+        //var acceptButton: Button = view.findViewById(R.id.accept_button)
+        //var uid: TextView = view.findViewById(R.id.text_uid)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = RecyclerViewAdapter()
 
@@ -95,6 +140,8 @@ class DeliveryExFragment : Fragment() {
             var totalPrice: TextView = itemView.findViewById(R.id.tv_totalprice)
             var store: TextView = itemView.findViewById(R.id.arrive_add)
             var time : TextView = itemView.findViewById(R.id.tv_time)
+            var uid : TextView = itemView.findViewById(R.id.text_uid)
+
         }
         override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
             holder.deliveryPrice.text = order[position].deliveryPrice
@@ -102,8 +149,17 @@ class DeliveryExFragment : Fragment() {
             holder.totalPrice.text = order[position].totalPrice
             holder.store.text = order[position].storeAddress
             holder.time.text = order[position].complete_writing
+            holder.uid.text = order[position].uid
+            uid = order[position].uid.toString()
             //Toast.makeText(activity, "하나 성공 order개수: ${order.size} 메뉴: ${holder.menu.text} ", Toast.LENGTH_SHORT ).show()
             //Log.d(TAG, "시간알림: ${holder.time.text}")
+
+            holder.itemView.setOnClickListener {
+                val intent = Intent(context, MessageActivity::class.java)
+                intent.putExtra("destinationUid", uid)
+                intent.putExtra("switch_checked", "false")
+                context?.startActivity(intent)
+            }
 
         }
 
