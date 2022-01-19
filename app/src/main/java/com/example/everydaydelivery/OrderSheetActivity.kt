@@ -1,9 +1,11 @@
 package com.example.everydaydelivery
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -24,6 +26,7 @@ class OrderSheetActivity : AppCompatActivity() {
     lateinit var tvTotalPrice: TextView
     lateinit var tvOrderRequest: TextView
     lateinit var uid:String
+    lateinit var home:ImageButton
 
     lateinit var inputManager: InputMethodManager
 
@@ -44,6 +47,7 @@ class OrderSheetActivity : AppCompatActivity() {
         tvDeliveryPrice = findViewById(R.id.textview_DeliveryPrice)
         tvTotalPrice = findViewById(R.id.textview_TotalPrice)
         tvOrderRequest = findViewById(R.id.textview_OrderRequest)
+        home = findViewById(R.id.home_btn)
 
         time = intent.getStringExtra("complete_writing").toString()
         Log.d("시간", "$time")
@@ -61,6 +65,12 @@ class OrderSheetActivity : AppCompatActivity() {
         tvOrderRequest.text = intent.getStringExtra("complete_writing").toString()
 
 
+        home.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
+
+
 
 }
