@@ -34,7 +34,7 @@ class HomeActivity : AppCompatActivity() {
 
                 supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.frameLayout_home, TestDeliveryFragment())
+                    .replace(R.id.frameLayout_home, DeliveryFragment())
                     .commit()
             } else {
                 toolbar.setBackground(getDrawable(R.drawable.gradation_orange))

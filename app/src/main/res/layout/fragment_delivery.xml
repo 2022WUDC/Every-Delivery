@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".DeliverypageFragment">
+    tools:context=".DeliveryFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -174,10 +174,11 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_delivery"
+            android:id="@+id/recycler_delivery"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="30dp" />
+            android:paddingTop="30dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 
     </LinearLayout>
