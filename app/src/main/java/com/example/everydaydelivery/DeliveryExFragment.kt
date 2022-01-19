@@ -6,22 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import androidx.recyclerview.widget.RecyclerView.ViewHolder as ViewHolder
-
-
 
 
 class DeliveryExFragment : Fragment() {
@@ -40,11 +33,6 @@ class DeliveryExFragment : Fragment() {
     private lateinit var database: DatabaseReference
     private var order: ArrayList<Order> = arrayListOf()
 
-    ///
-//    lateinit var dtextview1 : TextView
-//    lateinit var dtextview2 : TextView
-//    lateinit var dtextview3 : TextView
-//
 //    lateinit var recyclerview_order : RecyclerView
 //    lateinit var orderlist : ArrayList<Order>
 //    lateinit var mylist : ArrayList<String>
@@ -82,6 +70,7 @@ class DeliveryExFragment : Fragment() {
 //        recyclerview_order.adapter = RecyclerViewAdapter()
 //        recyclerview_order.layoutManager = LinearLayoutManager(activity)
 
+        // 리사이클러뷰 연결해주기
         database = Firebase.database.reference
         val view = inflater.inflate(R.layout.fragment_delivery_ex, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview_order)
@@ -105,21 +94,16 @@ class DeliveryExFragment : Fragment() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     order.clear()
                     for (data in snapshot.children) {
+                        //println(data)
                         val item = data.getValue<Order>()
 
+
                         order.add(item!!)
+                        Toast.makeText(activity, "${data}", Toast.LENGTH_LONG).show()
                     }
                     notifyDataSetChanged()
                 }
             })
-        }
-
-
-
-        inner class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val store: TextView = itemView.findViewById(R.id.arrive_add)
-            val price: TextView = itemView.findViewById(R.id.tv_deliveryprice)
-            val name: TextView = itemView.findViewById(R.id.tv_name)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
@@ -128,10 +112,21 @@ class DeliveryExFragment : Fragment() {
             )
         }
 
+        inner class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            var deliveryPrice: TextView = itemView.findViewById(R.id.tv_deliveryprice)
+            var menu: TextView = itemView.findViewById(R.id.tv_menu)
+            var totalPrice: TextView = itemView.findViewById(R.id.tv_totalprice)
+            var store: TextView = itemView.findViewById(R.id.arrive_add)
+            var time : TextView = itemView.findViewById(R.id.tv_time)
+        }
         override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-            holder.store.text = order[position].arriveadd
-            holder.price.text = order[position].deliveryPrice.toString()
-            holder.name.text = order[position].name
+            holder.deliveryPrice.text = order[position].deliveryPrice
+            holder.menu.text = order[position].menu
+            holder.totalPrice.text = order[position].totalPrice
+            holder.store.text = order[position].storeAddress
+            holder.time.text = order[position].time
+            Toast.makeText(activity, "하나 성공 order개수: ${order.size} 메뉴: ${holder.menu.text} ", Toast.LENGTH_SHORT ).show()
+
         }
 
         override fun getItemCount(): Int {
