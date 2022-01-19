@@ -260,16 +260,14 @@
                 android:textColor="@color/font_color_light"
                 android:text="내 주변 맛집" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <net.daum.mf.map.api.MapView
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
-                android:drawableBottom="@drawable/map"
-                android:background="#00ff0000" />
+                android:layout_marginTop="10dp"
 
+                android:id="@+id/map_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 

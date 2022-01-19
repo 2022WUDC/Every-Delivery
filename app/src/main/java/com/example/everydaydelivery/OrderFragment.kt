@@ -41,9 +41,6 @@ class OrderFragment : Fragment() {
 
     lateinit var tvAddress: TextView
 
-    // 지도 확인용
-    lateinit var btnMap: Button
-
     private var currentOrder: ArrayList<CurrentOrder> = arrayListOf()
 
     var orderList = arrayListOf<OrderListViewItem>()
@@ -71,15 +68,6 @@ class OrderFragment : Fragment() {
         cardview_chat = view.findViewById(R.id.cardview_chat)
         cardview_myPage = view.findViewById(R.id.cardview_myPage)
         tvAddress = view.findViewById(R.id.textview_address)
-
-        // 지도 확인용
-        btnMap = view.findViewById(R.id.button)
-
-        // 지도 확인용
-        btnMap.setOnClickListener {
-            var intent = Intent(requireContext(), MapActivity::class.java)
-            startActivity(intent)
-        }
 
         cardview_request.setOnClickListener {
             var intent = Intent(requireContext(), OrderActivity::class.java)
