@@ -19,6 +19,7 @@ import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_main.*
+import net.daum.android.map.MapActivity
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -39,6 +40,8 @@ class OrderFragment : Fragment() {
     lateinit var cardview_request: CardView
     lateinit var cardview_chat: CardView
     lateinit var cardview_myPage:CardView
+
+    lateinit var tvAddress: TextView
 
     // 지도 확인용
     lateinit var btnMap: Button
@@ -69,18 +72,19 @@ class OrderFragment : Fragment() {
         cardview_request = view.findViewById(R.id.cardview_request)
         cardview_chat = view.findViewById(R.id.cardview_chat)
         cardview_myPage = view.findViewById(R.id.cardview_myPage)
+        tvAddress = view.findViewById(R.id.textview_address)
 
         // 지도 확인용
         btnMap = view.findViewById(R.id.button)
 
         // 지도 확인용
         btnMap.setOnClickListener {
-            var intent = Intent(requireContext(), OrderMyPageActivity::class.java)
+            var intent = Intent(requireContext(), MapActivity::class.java)
             startActivity(intent)
         }
 
         cardview_request.setOnClickListener {
-            var intent = Intent(requireContext(), ChatActivity::class.java)
+            var intent = Intent(requireContext(), OrderActivity::class.java)
             startActivity(intent)
         }
 
@@ -94,10 +98,6 @@ class OrderFragment : Fragment() {
             var intent = Intent(requireContext(), OrderMyPageActivity::class.java)
             startActivity(intent)
         }
-
-
-//        val orderAdapter = OrderListViewAdapter(requireContext(), orderList)
-//        listView.adapter = orderAdapter
 
 
         val current = LocalDateTime.now()
@@ -270,6 +270,45 @@ class OrderFragment : Fragment() {
 
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
+            }
+
+        })
+
+        val userQuery = dbReference.child("users").orderByChild("uid").equalTo(uid)
+
+        userQuery.addChildEventListener(object: ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d("User uid", snapshot.toString())
+                val address:String = snapshot.child("address").value.toString()
+
+                if (address == "null"){
+                    tvAddress.hint = "정보를 입력해주세요."
+                } else {
+                    tvAddress.setText(address)
+                }
+
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                val address:String = snapshot.child("address").value.toString()
+
+                if (address == "null"){
+                    tvAddress.hint = "정보를 입력해주세요."
+                } else {
+                    tvAddress.setText(address)
+                }
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
             }
 
         })

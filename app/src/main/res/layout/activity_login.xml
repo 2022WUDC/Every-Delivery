@@ -10,19 +10,15 @@
     android:id="@+id/layout_login"
     tools:context=".LoginActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="20sp"
-            android:fontFamily="@font/scdream5"
-            android:text="로그인"/>
-
-    </androidx.appcompat.widget.Toolbar>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="80dp"
+        android:textSize="20sp"
+        android:fontFamily="@font/scdream5"
+        android:text="로그인"/>
 
 
     <EditText
@@ -30,7 +26,7 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:paddingStart="15dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="70dp"
         android:background="@drawable/bg_login_input"
         android:ems="10"
         android:hint="이메일"
