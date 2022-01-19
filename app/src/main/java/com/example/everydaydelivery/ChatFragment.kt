@@ -3,11 +3,14 @@ package com.example.everydaydelivery
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Layout
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +25,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ChatFragment : Fragment() {
+
+    lateinit var etFindId_phone: EditText
+    lateinit var switch_checked: String
 
     companion object{
         fun newInstance() : ChatFragment {
@@ -43,10 +49,18 @@ class ChatFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        switch_checked = arguments?.getString("switch_checked").toString()
+
         val view = inflater.inflate(R.layout.fragment_chat, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.chatfragment_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = RecyclerViewAdapter()
+        val layout = view.findViewById<LinearLayout>(R.id.chat_fragment_layout)
+
+        if (switch_checked == "false") {
+            layout.setBackgroundResource(R.drawable.gradation_pink)
+        }
 
         return view
     }
@@ -58,6 +72,7 @@ class ChatFragment : Fragment() {
         private val destinationUsers : ArrayList<String> = arrayListOf()
 
         init {
+
             uid = Firebase.auth.currentUser?.uid.toString()
             println(uid)
 
@@ -114,6 +129,7 @@ class ChatFragment : Fragment() {
             holder.itemView.setOnClickListener {
                 val intent = Intent(context, MessageActivity::class.java)
                 intent.putExtra("destinationUid", destinationUsers[position])
+                intent.putExtra("switch_checked", switch_checked)
                 context?.startActivity(intent)
             }
         }

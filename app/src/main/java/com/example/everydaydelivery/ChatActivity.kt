@@ -18,7 +18,18 @@ class ChatActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
+        val bundle = Bundle()
+        val switch_checked = intent.getStringExtra("switch_checked")
+
+        if (switch_checked == "false") {
+            bundle.putString("switch_checked", "false")
+        } else {
+            bundle.putString("switch_checked", "true")
+        }
+
         chatFragment = ChatFragment.newInstance()
+        chatFragment.arguments = bundle
+
         supportFragmentManager.beginTransaction().replace(R.id.fragments_frame, chatFragment).commit()
     }
 }

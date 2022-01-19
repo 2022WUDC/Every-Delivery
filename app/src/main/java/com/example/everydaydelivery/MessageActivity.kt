@@ -33,9 +33,11 @@ class MessageActivity : AppCompatActivity() {
     private var uid: String? = null
     private var recyclerView: RecyclerView? = null
 
+    private lateinit var layout: LinearLayout
     private lateinit var topName: TextView
     private lateinit var imageView: Button
     private lateinit var info: ImageView
+    private lateinit var send_button: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +55,14 @@ class MessageActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.messageActivity_recyclerview)
         topName = findViewById(R.id.messageActivity_textView_topName)
         info = findViewById(R.id.messageActivity_imageView_info)
+        layout = findViewById(R.id.linearLayout)
+        send_button = findViewById(R.id.messageActivity_ImageView)
+
+        val switch_checked = intent.getStringExtra("switch_checked").toString()
+        if (switch_checked == "false") {
+            layout.setBackgroundResource(R.drawable.gradation_pink)
+            send_button.setBackgroundResource(R.drawable.radius_button_pink)
+        }
 
         info.setOnClickListener {
             var user: User? = null
