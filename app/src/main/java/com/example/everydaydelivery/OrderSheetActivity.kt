@@ -15,6 +15,7 @@ class OrderSheetActivity : AppCompatActivity() {
     lateinit var firebaseAuth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
     private val order = ArrayList<Order>()
+    private val fireDatabase = FirebaseDatabase.getInstance().reference
 
     lateinit var tvStoreAddress: TextView
     lateinit var tvMenu: TextView
@@ -22,8 +23,11 @@ class OrderSheetActivity : AppCompatActivity() {
     lateinit var tvDeliveryPrice: TextView
     lateinit var tvTotalPrice: TextView
     lateinit var tvOrderRequest: TextView
+    lateinit var uid:String
 
     lateinit var inputManager: InputMethodManager
+
+    private lateinit var time: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +36,7 @@ class OrderSheetActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
         val dbReference = database.reference
+        uid = firebaseAuth.currentUser?.uid.toString()
 
         tvStoreAddress = findViewById(R.id.textview_StoreAddress)
         tvMenu = findViewById(R.id.textview_Menu)
@@ -40,93 +45,22 @@ class OrderSheetActivity : AppCompatActivity() {
         tvTotalPrice = findViewById(R.id.textview_TotalPrice)
         tvOrderRequest = findViewById(R.id.textview_OrderRequest)
 
-        inputManager = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
-        val uid = firebaseAuth.currentUser?.uid.toString()
-        val orderQuery = dbReference.child("orders").orderByChild(uid)
-
-       //dbReference.child("orders/" + uid + "/storeAddress").setValue(tvStoreAddress.text.toString())
-
-        FirebaseDatabase.getInstance().reference.child("orders").addValueEventListener(object :
-        ValueEventListener {
-            override fun onCancelled(error: DatabaseError) {
+        time = intent.getStringExtra("complete_writing").toString()
+        Log.d("시간", "$time")
 
 
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var snap: DataSnapshot
-                order.clear()
-                for (snap in snapshot.children) {
-                    var item: MutableIterable<DataSnapshot> = snap.children
-                    for (data in item) {
-                        data.getValue<Order>()?.let { order.add(it) }
-                    }
-                }
-
-            }
-        })
-
-        /*
-        orderQuery.addValueEventListener(object : ChildEventListener {
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                Log.d("Order uid", snapshot.toString())
-                val storeAddress:String = snapshot.child("storeAddress").value.toString()
-                Log.d("Order uid", "${storeAddress}")
-                val menu:String = snapshot.child("menu").value.toString()
-                val menuPrice:String = snapshot.child("menuPrice").value.toString()
-                val deliveryPrice:String = snapshot.child("deliveryPrice").value.toString()
-                val totalPrice: String = snapshot.child("totalPrice").value.toString()
-                val orderRequest: String = snapshot.child("orderRequest").value.toString()
-
-                tvStoreAddress.text = storeAddress
-                tvMenu.text = menu
-                tvMenuPrice.text = menuPrice
-                tvDeliveryPrice.text = deliveryPrice
-                tvTotalPrice.text = totalPrice
-                tvOrderRequest.text = orderRequest
+        inputManager =
+            getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
 
-            }
-
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                val storeAddress:String = snapshot.child("storeAddress").value.toString()
-                val menu:String = snapshot.child("menu").value.toString()
-                val menuPrice:String = snapshot.child("menuPrice").value.toString()
-                val deliveryPrice:String = snapshot.child("deliveryPrice").value.toString()
-                val totalPrice: String = snapshot.child("totalPrice").value.toString()
-                val orderRequest: String = snapshot.child("orderRequest").value.toString()
-
-                tvStoreAddress.text = storeAddress
-                tvMenu.text = menu
-                tvMenuPrice.text = menuPrice
-                tvDeliveryPrice.text = deliveryPrice
-                tvTotalPrice.text = totalPrice
-                tvOrderRequest.text = orderRequest
-            }
-
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-*/
+        tvStoreAddress.text = intent.getStringExtra("storeAddress").toString()
+        tvMenu.text = intent.getStringExtra("menu").toString()
+        tvMenuPrice.text = intent.getStringExtra("menuPrice").toString()
+        tvDeliveryPrice.text = intent.getStringExtra("deliveryPrice").toString()
+        tvTotalPrice.text = intent.getStringExtra("totalPrice").toString()
+        tvOrderRequest.text = intent.getStringExtra("complete_writing").toString()
 
 
     }
 
-
-
 }
-/*
-private fun Query.addValueEventListener(childEventListener: ChildEventListener) {
-
-}
-*/
