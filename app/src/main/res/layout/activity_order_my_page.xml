@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
+            android:fontFamily="@font/scdream5"
             android:textSize="10dp"
             android:text="이름"/>
 
@@ -39,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
+            android:fontFamily="@font/scdream5"
             android:layout_marginEnd="20dp"
             android:padding="5dp"
             android:background="@drawable/bg_home_my_order_underline"
@@ -50,6 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/scdream5"
             android:layout_marginStart="20dp"
             android:textSize="10dp"
             android:text="닉네임"/>
@@ -72,6 +75,7 @@
                 android:enabled="false"
                 android:background="@null"
                 android:textColor="@color/black"
+                android:fontFamily="@font/scdream5"
                 android:textSize="15dp"
                 android:text="우리) 153153121351313"/>
 
@@ -100,6 +104,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:textSize="10dp"
+            android:fontFamily="@font/scdream5"
             android:text="휴대전화번호"/>
 
 
@@ -110,6 +115,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:fontFamily="@font/scdream5"
             android:padding="5dp"
             android:background="@drawable/bg_home_my_order_underline"
             android:textColor="@color/black"
@@ -120,6 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/scdream5"
             android:layout_marginStart="20dp"
             android:textSize="10dp"
             android:text="기본 주소"/>
@@ -138,6 +145,7 @@
             <EditText
                 android:id="@+id/editText_address"
                 android:layout_width="250dp"
+                android:fontFamily="@font/scdream5"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:background="@null"
@@ -169,6 +177,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
+            android:fontFamily="@font/scdream5"
             android:textSize="10dp"
             android:text="가상 계좌 번호"/>
 
@@ -189,6 +198,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:background="@null"
+                android:fontFamily="@font/scdream5"
                 android:enabled="false"
                 android:textColor="@color/black"
                 android:textSize="15dp"
