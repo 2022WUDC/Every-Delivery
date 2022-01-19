@@ -16,7 +16,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.everydaydelivery.databinding.DeliverySheetBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
@@ -31,7 +30,7 @@ class DeliveryExFragment : Fragment() {
 //    lateinit var storedVerificationId: String
 //    private lateinit var database: FirebaseDatabase
 //    lateinit var ref: DatabaseReference
-    lateinit var uid: String
+//lateinit var uid: String
 
     //lateinit var binding:DeliverySheetBinding
 
@@ -141,6 +140,7 @@ class DeliveryExFragment : Fragment() {
             var store: TextView = itemView.findViewById(R.id.arrive_add)
             var time : TextView = itemView.findViewById(R.id.tv_time)
             var uid : TextView = itemView.findViewById(R.id.text_uid)
+            //var button : Button = itemView.findViewById(R.id.accept_button)
 
         }
         override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
@@ -150,13 +150,13 @@ class DeliveryExFragment : Fragment() {
             holder.store.text = order[position].storeAddress
             holder.time.text = order[position].complete_writing
             holder.uid.text = order[position].uid
-            uid = order[position].uid.toString()
+
             //Toast.makeText(activity, "하나 성공 order개수: ${order.size} 메뉴: ${holder.menu.text} ", Toast.LENGTH_SHORT ).show()
             //Log.d(TAG, "시간알림: ${holder.time.text}")
 
             holder.itemView.setOnClickListener {
                 val intent = Intent(context, MessageActivity::class.java)
-                intent.putExtra("destinationUid", uid)
+                intent.putExtra("destinationUid", holder.uid.text)
                 intent.putExtra("switch_checked", "false")
                 context?.startActivity(intent)
             }
