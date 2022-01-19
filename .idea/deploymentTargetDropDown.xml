@@ -8,13 +8,21 @@
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
             <value value="C:\Users\user\.android\avd\Pixel_2_API_29.avd" />
-            <value value="C:\Users\user\.android\avd\Nexus_5X_API_27_1.avd" />
           </Key>
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2022-01-18T17:58:30.924322400Z" />
+    <targetSelectedWithDropDown>
+      <Target>
+        <type value="QUICK_BOOT_TARGET" />
+        <deviceKey>
+          <Key>
+            <type value="VIRTUAL_DEVICE_PATH" />
+            <value value="C:\Users\user\.android\avd\Pixel_2_API_29.avd" />
+          </Key>
+        </deviceKey>
+      </Target>
     </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2022-01-19T04:27:04.199049400Z" />
+    <timeTargetWasSelectedWithDropDown value="2022-01-19T10:41:41.812029700Z" />
   </component>
 </project>

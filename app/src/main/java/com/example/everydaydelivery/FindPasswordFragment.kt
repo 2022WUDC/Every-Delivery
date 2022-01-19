@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -17,10 +18,8 @@ import androidx.annotation.NonNull
 import com.google.android.gms.tasks.OnCompleteListener
 
 
-
-
-
 class FindPasswordFragment : Fragment() {
+    lateinit var imm: InputMethodManager
 
     lateinit var etEmail: EditText
     lateinit var etAuthNum: EditText
@@ -52,33 +51,11 @@ class FindPasswordFragment : Fragment() {
             val user = firebaseAuth.currentUser
 
             resetPassword(etEmail.text.toString())
-
-//            user!!.sendEmailVerification()
-//                .addOnCompleteListener { task ->
-//                    if (task.isSuccessful) {
-//                        Toast.makeText(activity, "확인메일을 보냈습니다", Toast.LENGTH_LONG).show()
-//                        btnCheck.isEnabled = true
-//                    } else {
-//                        Toast.makeText(activity, task.exception.toString(), Toast.LENGTH_LONG).show()
-//                    }
-//                }
         }
-
-//        btnChangePw.setOnClickListener {
-//            FirebaseAuth.getInstance().sendPasswordResetEmail(etEmail.text.toString()).addOnCompleteListener { task ->
-//                if(task.isSuccessful){
-//                    Toast.makeText(activity, "비밀번호 변경 메일을 전송했습니다", Toast.LENGTH_LONG).show()
-//                }else{
-//                    Toast.makeText(activity, task.exception.toString(), Toast.LENGTH_LONG).show()
-//                }
-//            }
-//        }
 
         btnLogin.setOnClickListener {
             startActivity(Intent(activity, LoginActivity::class.java))
         }
-
-
 
         return view
     }
@@ -87,10 +64,10 @@ class FindPasswordFragment : Fragment() {
         firebaseAuth?.sendPasswordResetEmail(email)
             ?.addOnCompleteListener{ it ->
                 if(it.isSuccessful){
-                    Toast.makeText(activity, "인증번호 전송에 성공하였습니다.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity, "재설정을 위한 이메일을 전송에 성공하였습니다.", Toast.LENGTH_LONG).show()
                     btnLogin.isEnabled = true
                 } else {
-                    Toast.makeText(activity, "인증번호 전송에 실패하였습니다.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity, "이메일 전송에 실패하였습니다.", Toast.LENGTH_LONG).show()
                 }
             }
     }

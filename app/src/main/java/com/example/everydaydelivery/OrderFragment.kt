@@ -90,9 +90,9 @@ class OrderFragment : Fragment() {
                 var time: String = ""
                 val complete_writing = snapshot.child("complete writing").value
 
-                var df = SimpleDateFormat("yyyy-MM-dd")
-                Log.d("firebase data : ", df.parse(complete_writing.toString()).time.toString())
-                Log.d("now data timestamp : ", df.parse(date).time.toString())
+//                var df = SimpleDateFormat("yyyy-MM-dd")
+//                Log.d("firebase data : ", df.parse(complete_writing.toString()).time.toString())
+//                Log.d("now data timestamp : ", df.parse(date).time.toString())
 
 
                 if (complete_writing != null){

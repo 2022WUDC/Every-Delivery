@@ -59,7 +59,7 @@
         android:layout_height="50dp"
         android:paddingStart="10dp"
         android:layout_marginTop="40dp"
-        android:backgroundTint="#ffaa00"
+        android:backgroundTint="@color/bg_orange"
         android:ems="12"
         android:gravity="center"
         android:text="로그인"

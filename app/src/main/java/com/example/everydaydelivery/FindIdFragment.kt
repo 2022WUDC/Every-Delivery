@@ -2,6 +2,7 @@ package com.example.everydaydelivery
 
 import android.content.ContentValues
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,10 +10,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -24,6 +29,7 @@ import java.util.Objects.toString
 import java.util.concurrent.TimeUnit
 
 class FindIdFragment : Fragment() {
+    lateinit var imm: InputMethodManager
 
     lateinit var etFindId_phone: EditText
     lateinit var etFindId_authNum: EditText
@@ -60,6 +66,8 @@ class FindIdFragment : Fragment() {
         val userRef = dbReference.child("users")
         ref = userRef
 
+        imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
         etFindId_phone = view.findViewById(R.id.editText_findId_phone)
         etFindId_authNum = view.findViewById(R.id.editText_findId_authNum)
         btnFindId_authNum = view.findViewById(R.id.button_findId_authNum)
@@ -77,7 +85,7 @@ class FindIdFragment : Fragment() {
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
-                Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show()
+                Toast.makeText(activity, "인증 번호 전송에 실패하였습니다.", Toast.LENGTH_LONG).show()
             }
 
             override fun onCodeSent(
@@ -91,11 +99,13 @@ class FindIdFragment : Fragment() {
 
         btnFindId_authNum.setOnClickListener{
             phoneCheck()
-            btnFindId_check.isEnabled = true
+            imm.hideSoftInputFromWindow(etFindId_authNum.windowToken, 0)
         }
 
 
         btnFindId_check.setOnClickListener{
+            imm.hideSoftInputFromWindow(etFindId_authNum.windowToken, 0)
+
             var check_num = etFindId_authNum.text.toString()
             if (!check_num.isEmpty()) {
                 val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(
@@ -181,6 +191,8 @@ class FindIdFragment : Fragment() {
             phone = "+82" + phone.substring(1)
             Log.d("TAG", "$phone")
             sendVerificationcode(phone)
+            btnFindId_check.isEnabled = true
+            btnFindId_check.setBackgroundColor(ContextCompat.getColor(requireActivity().applicationContext, R.color.bg_orange))
         } else {
             Toast.makeText(activity, "전화번호를 입력하세요.", Toast.LENGTH_SHORT).show()
         }
@@ -203,6 +215,7 @@ class FindIdFragment : Fragment() {
                 if (task.isSuccessful) {
                     Toast.makeText(activity, "인증 되었습니다", Toast.LENGTH_SHORT).show()
                     btnFindId.isEnabled = true
+                    btnFindId.setBackgroundColor(ContextCompat.getColor(requireActivity().applicationContext, R.color.bg_orange))
 
                     val user = firebaseAuth.currentUser
                     val user_db = ref.child(user?.uid.toString())
