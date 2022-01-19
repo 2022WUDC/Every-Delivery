@@ -8,4 +8,10 @@
         android:title="refresh"
         tools:icon="@drawable/ic_baseline_refresh_24"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_home"
+        android:title="home"
+        tools:icon="@drawable/ic_baseline_home_24"
+        app:showAsAction="ifRoom" />
 </menu>
