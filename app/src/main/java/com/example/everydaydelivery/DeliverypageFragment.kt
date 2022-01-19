@@ -1,0 +1,117 @@
+package com.example.everydaydelivery
+
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
+import com.google.firebase.ktx.Firebase
+
+
+class DeliverypageFragment : Fragment() {
+
+    lateinit var uid: String
+
+    companion object{
+        fun newInstance(): DeliverypageFragment{
+            return DeliverypageFragment()
+        }
+    }
+
+    private lateinit var database: DatabaseReference
+    private var order: ArrayList<Order> = arrayListOf()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        // 리사이클러뷰 연결해주기
+        database = Firebase.database.reference
+        val view = inflater.inflate(R.layout.fragment_deliverypage, container, false)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview_delivery)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = RecyclerViewAdapter()
+
+        return view
+    }
+
+    // 리사이클러 뷰 사용
+    inner class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.CustomViewHolder>(){
+
+        private val order = ArrayList<Order>()
+
+        init {
+            val allOrder = Firebase.auth.uid
+            FirebaseDatabase.getInstance().reference.child("orders").addValueEventListener(object :
+                ValueEventListener {
+                override fun onCancelled(error: DatabaseError) {
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var snap: DataSnapshot
+                    order.clear()
+                    for (snap in snapshot.children) {
+                        var item: MutableIterable<DataSnapshot> = snap.children
+                        for (data in item) {
+                            data.getValue<Order>()?.let { order.add(it) }
+                        }
+                    }
+                    notifyDataSetChanged()
+                }
+            })
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
+            return CustomViewHolder(
+                LayoutInflater.from(context).inflate(R.layout.delivery_sheet, parent, false)
+            )
+        }
+
+        override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
+            holder.deliveryPrice.text = order[position].deliveryPrice
+            holder.menu.text = order[position].menu
+            holder.totalPrice.text = order[position].totalPrice
+            holder.store.text = order[position].storeAddress
+            holder.time.text = order[position].complete_writing
+            holder.uid.text = order[position].uid
+            uid = order[position].uid.toString()
+
+            holder.itemView.setOnClickListener {
+                val intent = Intent(context, MessageActivity::class.java)
+                intent.putExtra("destinationUid", uid)
+                intent.putExtra("switch_checked", "false")
+                context?.startActivity(intent)
+            }
+        }
+
+        override fun getItemCount(): Int {
+            return order.size
+        }
+
+        inner class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            var deliveryPrice: TextView = itemView.findViewById(R.id.tv_deliveryprice)
+            var menu: TextView = itemView.findViewById(R.id.tv_menu)
+            var totalPrice: TextView = itemView.findViewById(R.id.tv_totalprice)
+            var store: TextView = itemView.findViewById(R.id.arrive_add)
+            var time : TextView = itemView.findViewById(R.id.tv_time)
+            var uid : TextView = itemView.findViewById(R.id.text_uid)
+        }
+
+    }
+
+
+}
