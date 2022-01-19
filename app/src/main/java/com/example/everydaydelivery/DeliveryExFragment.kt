@@ -4,10 +4,9 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.*
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,11 +19,8 @@ import com.google.firebase.ktx.Firebase
 
 
 class DeliveryExFragment : Fragment() {
+    //, androidx.appcompat.widget.SearchView.OnQueryTextListener
 
-//    lateinit var firebaseAuth: FirebaseAuth
-//    lateinit var storedVerificationId: String
-//    private lateinit var database: FirebaseDatabase
-//    lateinit var ref: DatabaseReference
 
     companion object{
         fun newInstance() : DeliveryExFragment{
@@ -35,10 +31,6 @@ class DeliveryExFragment : Fragment() {
     private lateinit var database: DatabaseReference
     private var order: ArrayList<Order> = arrayListOf()
 
-//    lateinit var recyclerview_order : RecyclerView
-//    lateinit var orderlist : ArrayList<Order>
-//    lateinit var mylist : ArrayList<String>
-    ///
     override fun onAttach(context: Context) {
         super.onAttach(context)
     }
@@ -48,29 +40,7 @@ class DeliveryExFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-//        var view = LayoutInflater.from(activity).inflate(R.layout.fragment_delivery_ex, container, false)
-//
-//        orderlist = arrayListOf<Order>()
-//        mylist = arrayListOf<String>()
-//
-//        // 파이어베이스 인증 객체
-//        firebaseAuth = FirebaseAuth.getInstance()
-//
-//        //database = Firebase.database.reference 를 써야 하나?
-//        database = FirebaseDatabase.getInstance()
-//        val dbReference = database.reference
-//        val userRef = dbReference.child("orders")
-//        ref = userRef
-//
-//        dtextview1 = view.findViewById(R.id.arrive_add)
-//        dtextview2 = view.findViewById(R.id.tv_deliveryprice)
-//        dtextview3 = view.findViewById(R.id.tv_name)
-//
-//        // 홈의 리사이클러뷰와 연결
-//        recyclerview_order = view.findViewById(R.id.recyclerview_order)
-//        recyclerview_order.adapter = RecyclerViewAdapter()
-//        recyclerview_order.layoutManager = LinearLayoutManager(activity)
+
 
         // 리사이클러뷰 연결해주기
         database = Firebase.database.reference
@@ -80,13 +50,14 @@ class DeliveryExFragment : Fragment() {
         recyclerView.adapter = RecyclerViewAdapter()
 
         return view
-        // 여기까지는 맞게 한 듯
+
     }
 
     // 리사이클러뷰 사용
     inner class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.CustomViewHolder>(){
 
         private val order = ArrayList<Order>()
+        private var tempArrayList = ArrayList<Order>()
 
         init {
             val allOrder = Firebase.auth.uid
@@ -107,6 +78,8 @@ class DeliveryExFragment : Fragment() {
                     notifyDataSetChanged()
                 }
             })
+            // 내가 추가한거
+            tempArrayList.addAll(order)
         }
 
 
@@ -137,40 +110,39 @@ class DeliveryExFragment : Fragment() {
         override fun getItemCount(): Int {
             return order.size
         }
+
+
+
     }
 
-
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        inflater.inflate(R.menu.search_menu, menu)
+//        val search = menu?.findItem(R.id.search_menu)
+//        val searchView = search.actionView as? SearchView
+//        searchView?.isSubmitButtonEnabled = true
+//        searchView?.setOnQueryTextListener(this)
 //
-//        inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-//
-//        // view와 실제 데이터 연결
-//        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-//            var viewHolder = (holder as ViewHolder).itemView
-//            var store : TextView
-//            var price : TextView
-//            var name :  TextView
-//
-//            store = viewHolder.findViewById(R.id.arrive_add)
-//            price = viewHolder.findViewById(R.id.tv_deliveryprice)
-//            name = viewHolder.findViewById(R.id.tv_name)
-//
-//            // 리사이클러뷰 아이템 정보
-//            store.text = orderlist!![position].arriveadd
-//            price.text = orderlist!![position].deliveryPrice.toString()
-//            name.text = orderlist!![position].name
-//
-//        }
-//
-//        override fun getItemCount(): Int {
-//            return orderlist.size
-//        }
+//        super.onCreateOptionsMenu(menu, inflater)
 //
 //    }
 //
-//    // 파이어베이스에서 데이터 불러오기
-//    fun loadData(){
-//        // 주문서 불러오기
-//        if (order)
+//
+//    override fun onQueryTextSubmit(query: String?): Boolean {
+//        TODO("Not yet implemented")
+//    }
+//
+//    override fun onQueryTextChange(newText: String?): Boolean {
+//        TODO("Not yet implemented")
+//    }
+//
+//    private fun searchDatabase(query: String){
+//        val searchQuery = "%$query%"
+//
+//        mainViewModel.searchDatabase(searchQuery).observe(this,{list ->
+//            list.let{
+//                myAdapter.setData(it)
+//            }
+//        })
 //    }
 
 
