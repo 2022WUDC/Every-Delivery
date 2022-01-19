@@ -44,7 +44,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/icon_request" />
+                        android:src="@drawable/icon_delivery_request" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -86,7 +86,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/icon_chat" />
+                        android:src="@drawable/icon_delivery_chat" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -126,7 +126,7 @@
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/icon_myinfo" />
+                        android:src="@drawable/icon_delivery_myinfo" />
 
                     <TextView
                         android:layout_width="wrap_content"

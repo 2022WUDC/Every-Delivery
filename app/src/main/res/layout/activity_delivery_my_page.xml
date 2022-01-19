@@ -6,13 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".OrderMyPageActivity">
+    tools:context=".DeliveryMyPageActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_mode"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@drawable/gradation_orange"
+        android:background="@drawable/gradation_pink"
         android:elevation="10dp"
         android:minHeight="?attr/actionBarSize">
 
@@ -40,7 +40,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="50dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/icon_myinfo"/>
+        android:src="@drawable/icon_delivery_myinfo"/>
 
 
     <LinearLayout
@@ -244,5 +244,6 @@
 
 
     </LinearLayout>
+
 
 </LinearLayout>

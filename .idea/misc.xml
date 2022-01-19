@@ -13,6 +13,7 @@
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/drawable/gradation_orange.xml" value="0.23177083333333334" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/drawable/gradation_pink.xml" value="0.38229166666666664" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/drawable/gradient.xml" value="0.38229166666666664" />
+        <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.31851851851851853" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/drawable/ic_baseline_arrow_forward_ios_24.xml" value="0.23177083333333334" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/drawable/ic_launcher_background.xml" value="0.38229166666666664" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/drawable/order_gradient.xml" value="0.3764102564102564" />
@@ -23,6 +24,7 @@
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/drawable/switch_track_order.xml" value="0.38229166666666664" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/drawable/switch_track_selector.xml" value="0.38229166666666664" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_delivery.xml" value="0.34074074074074073" />
+        <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_delivery_my_page.xml" value="0.36614583333333334" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_find.xml" value="0.4036458333333333" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_home.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_login.xml" value="0.33" />
@@ -31,7 +33,7 @@
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_message.xml" value="0.215625" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_order.xml" value="0.36614583333333334" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_order_alarm.xml" value="0.36614583333333334" />
-        <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_order_my_page.xml" value="0.33" />
+        <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_order_my_page.xml" value="0.25" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_sign_up.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_sign_up2.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/fragment_chat.xml" value="0.36614583333333334" />
