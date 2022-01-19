@@ -10,7 +10,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        tools:background="@drawable/gradation_orange"
+        android:background="@drawable/gradation_orange"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +41,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"
-                tools:src="@drawable/ic_baseline_info_24"
+                android:src="@drawable/ic_baseline_info_24"
                 android:visibility="invisible" />
 
         </LinearLayout>
@@ -76,7 +76,7 @@
         <EditText
             android:id="@+id/messageActivity_editText"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="65dp"

@@ -18,22 +18,19 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/messageItem_imageview_profile"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/messageItem_textview_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/scdream4"
                 android:text="이름"
                 android:textColor="#000000"
                 android:textStyle="bold" />
@@ -43,6 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
+                android:fontFamily="@font/scdream4"
                 android:text="메세지"
                 android:textColor="#000000" />
 
@@ -50,6 +48,7 @@
                 android:id="@+id/messageItem_textView_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/scdream4"
                 android:text="시간"
                 android:textSize="12sp" />
         </LinearLayout>
