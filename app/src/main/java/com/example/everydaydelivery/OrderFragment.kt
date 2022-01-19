@@ -80,6 +80,9 @@ class OrderFragment : Fragment() {
         val uid = firebaseAuth.currentUser?.uid.toString()
         val orderQuery = dbReference.child("orders").child(uid).equalTo(uid)
 
+
+
+
         orderQuery.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 currentOrder.clear()

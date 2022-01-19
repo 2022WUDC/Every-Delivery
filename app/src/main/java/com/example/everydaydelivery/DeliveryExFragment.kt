@@ -124,7 +124,6 @@ class DeliveryExFragment : Fragment() {
             var store: TextView = itemView.findViewById(R.id.arrive_add)
             var time : TextView = itemView.findViewById(R.id.tv_time)
         }
-        
         override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
             holder.deliveryPrice.text = order[position].deliveryPrice
             holder.menu.text = order[position].menu
