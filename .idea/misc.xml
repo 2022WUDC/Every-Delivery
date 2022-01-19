@@ -42,14 +42,6 @@
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/menu/main.xml" value="0.20520833333333333" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.22135416666666666" />
         <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.22135416666666666" />
-        <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/fragment_order.xml" value="0.36614583333333334" />
-        <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/fragment_test_delivery.xml" value="0.36614583333333334" />
-        <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/item_chat.xml" value="0.215625" />
-        <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/item_user.xml" value="0.215625" />
-        <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/main_my_order_item.xml" value="0.36614583333333334" />
-        <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/menu/main.xml" value="0.20520833333333333" />
-        <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.22135416666666666" />
-        <entry key="..\:/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/user/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_chat.xml" value="0.21666666666666667" />
         <entry key="..\:/Users/user/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_delivery.xml" value="0.3268641470888662" />
         <entry key="..\:/Users/user/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_login.xml" value="0.3333333333333333" />
@@ -75,6 +67,8 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/item_user.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/user/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/layout/main_my_order_item.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/user/AndroidStudioProjects/EVERYDAY-DELIVERY/app/src/main/res/menu/main.xml" value="0.3333333333333333" />
+        <entry key="..\:/WUDC/EVERYDAY-DELIVERY/app/src/main/res/layout/activity_login.xml" value="0.1421875" />
+        <entry key="..\:/WUDC/EVERYDAY-DELIVERY/app/src/main/res/layout/fragment_order.xml" value="0.2020997375328084" />
         <entry key="..\:/WUDC/app/src/main/res/layout/activity_find.xml" value="0.12604166666666666" />
         <entry key="..\:/WUDC/app/src/main/res/layout/activity_login.xml" value="0.12604166666666666" />
         <entry key="..\:/WUDC/app/src/main/res/layout/activity_order.xml" value="0.2" />

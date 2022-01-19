@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -36,6 +37,9 @@ class OrderFragment : Fragment() {
     lateinit var tvNoneOrder: TextView
     lateinit var cardview_chat: CardView
 
+    // 지도 확인용
+    lateinit var btnMap: Button
+
     private var currentOrder: ArrayList<CurrentOrder> = arrayListOf()
 
 //    var orderList = arrayListOf<OrderListViewItem>(
@@ -49,7 +53,6 @@ class OrderFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
     }
 
@@ -67,6 +70,15 @@ class OrderFragment : Fragment() {
         listView = view.findViewById(R.id.listView_home)
         tvNoneOrder = view.findViewById(R.id.textView_noneOrder)
         cardview_chat = view.findViewById(R.id.cardview_chat)
+
+        // 지도 확인용
+        btnMap = view.findViewById(R.id.button)
+
+        // 지도 확인용
+        btnMap.setOnClickListener {
+            var intent = Intent(requireContext(), MapActivity::class.java)
+            startActivity(intent)
+        }
 
         cardview_chat.setOnClickListener {
             var intent = Intent(requireContext(), ChatActivity::class.java)

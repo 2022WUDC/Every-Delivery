@@ -106,11 +106,4 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:backgroundTint="#EB3939"
-        android:text="지도 확인용 (나중에 삭제)" />
-
 </LinearLayout>
