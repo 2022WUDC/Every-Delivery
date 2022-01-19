@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textSize="20dp"
+        android:textColor="#FFFFFF"
         android:fontFamily="@font/scdream5"
         android:text="요청서" />
 
