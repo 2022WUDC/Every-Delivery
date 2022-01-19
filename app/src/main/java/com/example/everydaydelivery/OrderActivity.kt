@@ -11,7 +11,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
-
+import java.util.*
 
 
 class OrderActivity : AppCompatActivity() {
@@ -36,6 +36,9 @@ class OrderActivity : AppCompatActivity() {
         val dbReference = database.reference
         val orderRef = dbReference.child("orders")
 
+        val time = System.currentTimeMillis()
+        val dateFormat = SimpleDateFormat("MM월dd일 hh:mm")
+        val curTime = dateFormat.format(Date(time)).toString()
 
         edt_StoreAddress = findViewById(R.id.StoreAddress)
         edt_Menu = findViewById(R.id.Menu)
@@ -68,10 +71,6 @@ class OrderActivity : AppCompatActivity() {
 
                 val order = firebaseAuth.currentUser
 
-                val now: Long = System.currentTimeMillis()
-                val dateFormat = SimpleDateFormat("mm월dd일 hh:mm:ss")
-                val time = dateFormat.format(now)
-
 
                 Toast.makeText(this,"complete writing", Toast.LENGTH_SHORT).show()
 
@@ -101,7 +100,7 @@ class OrderActivity : AppCompatActivity() {
                 order_db.child("orderRequest").setValue(orderRequest)
                 Log.d(TAG, "child.uid : " + order?.uid.toString())
 
-                order_db.child("time").setValue(time)
+                order_db.child("time").setValue(curTime)
 
                 val intent = Intent(this, DeliveryActivity::class.java)
                 startActivity(intent)
