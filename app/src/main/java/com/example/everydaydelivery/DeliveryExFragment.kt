@@ -2,6 +2,7 @@ package com.example.everydaydelivery
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -92,14 +93,18 @@ class DeliveryExFragment : Fragment() {
                 }
 
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    var snap: DataSnapshot
                     order.clear()
-                    for (data in snapshot.children) {
-                        //println(data)
-                        val item = data.getValue<Order>()
+                    for (snap in snapshot.children) {
+                        var item: MutableIterable<DataSnapshot> = snap.children
+                        for (item2 in item) {
+                            val data = item2.getValue<Order>()
+                            val menu = data?.menu
+                            //Log.d("ordertag", "$menu")
+                        }
 
-
-                        order.add(item!!)
-                        Toast.makeText(activity, "${data}", Toast.LENGTH_LONG).show()
+                        //order.add(item!!)
+                        //Toast.makeText(activity, "${data}", Toast.LENGTH_LONG).show()
                     }
                     notifyDataSetChanged()
                 }

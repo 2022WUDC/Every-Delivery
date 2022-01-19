@@ -41,7 +41,6 @@ class MessageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_message)
 
-        setContentView(R.layout.activity_message)
         val imageView = findViewById<Button>(R.id.messageActivity_ImageView)
         val editText = findViewById<TextView>(R.id.messageActivity_editText)
 
@@ -159,6 +158,7 @@ class MessageActivity : AppCompatActivity() {
                     }
 
                     override fun onDataChange(snapshot: DataSnapshot) {
+                        Log.d("tag", "채팅방으로 이동")
                         user = snapshot.getValue<User>()
                         topName.text = user?.nickname
                         info.visibility = View.VISIBLE
