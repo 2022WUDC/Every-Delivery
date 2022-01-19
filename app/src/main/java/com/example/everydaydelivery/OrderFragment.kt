@@ -68,14 +68,15 @@ class OrderFragment : Fragment() {
         tvNoneOrder = view.findViewById(R.id.textView_noneOrder)
         cardview_chat = view.findViewById(R.id.cardview_chat)
 
-//        val orderAdapter = OrderListViewAdapter(requireContext(), orderList)
-//        listView.adapter = orderAdapter
-
         cardview_chat.setOnClickListener {
             var intent = Intent(requireContext(), ChatActivity::class.java)
             intent.putExtra("switch_checked", false)
             startActivity(intent)
         }
+
+
+//        val orderAdapter = OrderListViewAdapter(requireContext(), orderList)
+//        listView.adapter = orderAdapter
 
 
         val current = LocalDateTime.now()
@@ -84,263 +85,35 @@ class OrderFragment : Fragment() {
 
 
         val uid = firebaseAuth.currentUser?.uid.toString()
-        Log.d("UID : ", uid)
+        val orderQuery = dbReference.child("orders").child(uid).equalTo(uid)
 
-        val orderQuery = dbReference.child("orders").child(uid)
-        var orderList = arrayListOf<OrderListViewItem>()
-        var time:String = ""
 
-        orderQuery.addChildEventListener(object : ChildEventListener {
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+
+
+        orderQuery.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
                 currentOrder.clear()
-                orderList.clear()
-
                 for (snap in snapshot.children) {
-                    Log.d("item : ", snap.toString())
                     var item: MutableIterable<DataSnapshot> = snap.children
+                    for (item2 in item) {
+                        val data = item2.getValue<CurrentOrder>()
+                        val complete_writing = data?.complete_writing
+                        val request_accept = data?.request_accept
+                        val delivery = data?.delivery
+                        val complete_delivery = data?.complete_delivery
+                        val storeAddress = data?.storeAddress
 
-                    for (item2 in item){
-                        Log.d("item2 : ", item2.toString())
-                    }
-
-
-//                    if (snap.child(uid).equals(uid)) {
-//                        var item: MutableIterable<DataSnapshot> = snap.children
-//                        for (item2 in item) {
-//
-//                            val data = item2.getValue<CurrentOrder>()
-//                            val complete_writing = data?.complete_writing
-//                            val request_accept = data?.request_accept
-//                            val delivery = data?.delivery
-//                            val complete_delivery = data?.complete_delivery
-//                            val storeAddress = data?.storeAddress
-//
-//                            if (complete_delivery != null) {
-//                                time = timeCalc(complete_writing.toString())
-//                                Log.d("complete delivery time : ", time)
-//
-//                                if (time != ""){
-//                                    orderList.add(0, OrderListViewItem("배달완료", time, storeAddress.toString()))
-//                                }
-//
-//                            } else if (delivery != null) {
-//                                time = timeCalc(delivery.toString())
-//                                Log.d("delivery time : ", time)
-//
-//                                if (time != ""){
-//                                    orderList.add(0, OrderListViewItem("배달중", time, storeAddress.toString()))
-//                                }
-//
-//                            } else if (request_accept != null) {
-//                                time = timeCalc(request_accept.toString())
-//                                Log.d("request_accept time : ", time)
-//
-//                                if (time != ""){
-//                                    orderList.add(0, OrderListViewItem("요청수락", time, storeAddress.toString()))
-//                                }
-//
-//                            } else if (complete_writing != null) {
-//                                time = timeCalc(complete_writing.toString())
-//                                Log.d("complete_writing time : ", time)
-//
-//                                if (time != ""){
-//                                    orderList.add(0, OrderListViewItem("작성완료", time, storeAddress.toString()))
-//                                }
-//
-//                            } else {
-//
-//                            }
-//                        }
-
-//                    }
-                }
-
-//                if (orderList.size > 0){
-//                    Log.d("Order List state : ", "data 있음")
-//
-//                    listView.visibility = View.VISIBLE
-//                    tvNoneOrder.visibility = View.GONE
-//
-//                    val orderAdapter = OrderListViewAdapter(requireContext(), orderList)
-//                    listView.adapter = orderAdapter
-//
-//                } else {
-//                    Log.d("Order List state : ", "data 없음")
-//                    listView.visibility = View.GONE
-//                    tvNoneOrder.visibility = View.VISIBLE
-//                }
-            }
-
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                currentOrder.clear()
-                orderList.clear()
-                for (snap in snapshot.children) {
-                    if (snap.key.equals(uid)) {
-                        var item: MutableIterable<DataSnapshot> = snap.children
-                        for (item2 in item) {
-
-                            val data = item2.getValue<CurrentOrder>()
-                            val complete_writing = data?.complete_writing
-                            val request_accept = data?.request_accept
-                            val delivery = data?.delivery
-                            val complete_delivery = data?.complete_delivery
-                            val storeAddress = data?.storeAddress
-
-                            if (complete_delivery != null) {
-                                time = timeCalc(complete_writing.toString())
-                                Log.d("complete delivery time : ", time)
-
-                                if (time != ""){
-                                    orderList.add(0, OrderListViewItem("배달완료", time, storeAddress.toString()))
-                                }
-
-                            } else if (delivery != null) {
-                                time = timeCalc(delivery.toString())
-                                Log.d("delivery time : ", time)
-
-                                if (time != ""){
-                                    orderList.add(0, OrderListViewItem("배달중", time, storeAddress.toString()))
-                                }
-
-                            } else if (request_accept != null) {
-                                time = timeCalc(request_accept.toString())
-                                Log.d("request_accept time : ", time)
-
-                                if (time != ""){
-                                    orderList.add(0, OrderListViewItem("요청수락", time, storeAddress.toString()))
-                                }
-
-                            } else if (complete_writing != null) {
-                                time = timeCalc(complete_writing.toString())
-                                Log.d("complete_writing time : ", time)
-
-                                if (time != ""){
-                                    orderList.add(0, OrderListViewItem("작성완료", time, storeAddress.toString()))
-                                }
-
-                            } else {
-
-                            }
-                        }
-
+                        Log.d("item2 complete : ", complete_writing.toString())
+                        Log.d("item2 storeAddress : ", storeAddress.toString())
                     }
                 }
-
-                if (orderList.size > 0){
-                    Log.d("Order List state : ", "data 있음")
-
-                    listView.visibility = View.VISIBLE
-                    tvNoneOrder.visibility = View.GONE
-
-                    val orderAdapter = OrderListViewAdapter(requireContext(), orderList)
-                    listView.adapter = orderAdapter
-
-                } else {
-                    Log.d("Order List state : ", "data 없음")
-                    listView.visibility = View.GONE
-                    tvNoneOrder.visibility = View.VISIBLE
-                }
-            }
-
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-
-            }
-
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-
             }
 
             override fun onCancelled(error: DatabaseError) {
-
+                TODO("Not yet implemented")
             }
 
         })
-
-//        orderQuery.addListenerForSingleValueEvent(object: ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                currentOrder.clear()
-//                orderList.clear()
-//                for (snap in snapshot.children) {
-//                    if (snap.key.equals(uid)) {
-//                        var item: MutableIterable<DataSnapshot> = snap.children
-//                        for (item2 in item) {
-//
-//                            val data = item2.getValue<CurrentOrder>()
-//                            val complete_writing = data?.complete_writing
-//                            val request_accept = data?.request_accept
-//                            val delivery = data?.delivery
-//                            val complete_delivery = data?.complete_delivery
-//                            val storeAddress = data?.storeAddress
-//
-//                            if (complete_delivery != null) {
-//                                time = timeCalc(complete_writing.toString())
-//                                Log.d("complete delivery time : ", time)
-//
-//                                if (time != ""){
-//                                    orderList.add(0, OrderListViewItem("배달완료", time, storeAddress.toString()))
-//                                }
-//
-//                            } else if (delivery != null) {
-//                                time = timeCalc(delivery.toString())
-//                                Log.d("delivery time : ", time)
-//
-//                                if (time != ""){
-//                                    orderList.add(0, OrderListViewItem("배달중", time, storeAddress.toString()))
-//                                }
-//
-//                            } else if (request_accept != null) {
-//                                time = timeCalc(request_accept.toString())
-//                                Log.d("request_accept time : ", time)
-//
-//                                if (time != ""){
-//                                    orderList.add(0, OrderListViewItem("요청수락", time, storeAddress.toString()))
-//                                }
-//
-//                            } else if (complete_writing != null) {
-//                                time = timeCalc(complete_writing.toString())
-//                                Log.d("complete_writing time : ", time)
-//
-//                                if (time != ""){
-//                                    orderList.add(0, OrderListViewItem("작성완료", time, storeAddress.toString()))
-//                                }
-//
-//                            } else {
-//
-//                            }
-//                        }
-//
-//                    }
-//                }
-//
-//                if (orderList.size > 0){
-//                    Log.d("Order List state : ", "data 있음")
-//
-//                    listView.visibility = View.VISIBLE
-//                    tvNoneOrder.visibility = View.GONE
-//
-//                    val orderAdapter = OrderListViewAdapter(requireContext(), orderList)
-//                    listView.adapter = orderAdapter
-//                } else {
-//                    listView.visibility = View.GONE
-//                    tvNoneOrder.visibility = View.VISIBLE
-//                }
-//            }
-//
-//            override fun onChildRemoved(snapshot: DataSnapshot) {
-//
-//            }
-//
-//            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-//
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                Toast.makeText(activity, "Error", Toast.LENGTH_SHORT).show()
-//            }
-//
-//        })
-
-
         return view
     }
 }
