@@ -36,19 +36,14 @@ class OrderFragment : Fragment() {
 
     lateinit var listView: ListView
     lateinit var tvNoneOrder: TextView
+    lateinit var cardview_request: CardView
     lateinit var cardview_chat: CardView
+    lateinit var cardview_myPage:CardView
 
     // 지도 확인용
     lateinit var btnMap: Button
 
     private var currentOrder: ArrayList<CurrentOrder> = arrayListOf()
-
-//    var orderList = arrayListOf<OrderListViewItem>(
-//        OrderListViewItem("작성완료", "오전 10:49", "응급실국물떡볶이 서울자양점"),
-//        OrderListViewItem("요청수락", "오전 10:54", "응급실국물떡볶이 서울자양점"),
-//        OrderListViewItem("배달중", "오전 11:21", "응급실국물떡볶이 서울자양점"),
-//        OrderListViewItem("배달완료", "오전 11:47", "응급실국물떡볶이 서울자양점"),
-//    )
 
     var orderList = arrayListOf<OrderListViewItem>()
 
@@ -71,20 +66,32 @@ class OrderFragment : Fragment() {
 
         listView = view.findViewById(R.id.listView_home)
         tvNoneOrder = view.findViewById(R.id.textView_noneOrder)
+        cardview_request = view.findViewById(R.id.cardview_request)
         cardview_chat = view.findViewById(R.id.cardview_chat)
+        cardview_myPage = view.findViewById(R.id.cardview_myPage)
 
         // 지도 확인용
         btnMap = view.findViewById(R.id.button)
 
         // 지도 확인용
         btnMap.setOnClickListener {
-            var intent = Intent(requireContext(), MapActivity::class.java)
+            var intent = Intent(requireContext(), OrderMyPageActivity::class.java)
+            startActivity(intent)
+        }
+
+        cardview_request.setOnClickListener {
+            var intent = Intent(requireContext(), ChatActivity::class.java)
             startActivity(intent)
         }
 
         cardview_chat.setOnClickListener {
             var intent = Intent(requireContext(), ChatActivity::class.java)
             intent.putExtra("switch_checked", false)
+            startActivity(intent)
+        }
+
+        cardview_myPage.setOnClickListener {
+            var intent = Intent(requireContext(), OrderMyPageActivity::class.java)
             startActivity(intent)
         }
 
