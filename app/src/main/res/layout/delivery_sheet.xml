@@ -118,11 +118,12 @@
                 android:layout_marginTop="13dp"
                 android:text="원"
                 app:layout_constraintStart_toEndOf="@+id/tv_totalprice"
-                app:layout_constraintTop_toBottomOf="@+id/arrive_add" />
+                app:layout_constraintTop_toBottomOf="@+id/arrive_add"
+                android:fontFamily="@font/scdream5" />
 
             <TextView
                 android:id="@+id/text_uid"
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"

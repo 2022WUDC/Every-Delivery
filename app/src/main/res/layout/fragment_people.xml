@@ -20,7 +20,7 @@
             android:layout_gravity="bottom"
             android:layout_marginLeft="15dp"
             android:layout_marginBottom="5dp"
-            android:fontFamily="cursive"
+            android:fontFamily="@font/scdream5"
             android:text="유저"
             android:textColor="@color/black"
             android:textSize="24sp"
