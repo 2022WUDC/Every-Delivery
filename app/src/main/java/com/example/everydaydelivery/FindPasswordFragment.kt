@@ -1,6 +1,7 @@
 package com.example.everydaydelivery
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -44,13 +45,8 @@ class FindPasswordFragment : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         etEmail = view.findViewById(R.id.editText_findPw_email)
-        etAuthNum = view.findViewById(R.id.editText_findPw_authNum)
-        etChangePw = view.findViewById(R.id.editText_findPw_changePw)
         btnAuthNum = view.findViewById(R.id.button_findPw_authNum)
-        btnCheck = view.findViewById(R.id.button_findPw_check)
-        btnChangePw = view.findViewById(R.id.button_changePw)
         btnLogin = view.findViewById(R.id.button_login)
-
 
         btnAuthNum.setOnClickListener{
             val user = firebaseAuth.currentUser
@@ -68,18 +64,18 @@ class FindPasswordFragment : Fragment() {
 //                }
         }
 
-        btnCheck.setOnClickListener {
-            btnChangePw.isEnabled = true
-        }
+//        btnChangePw.setOnClickListener {
+//            FirebaseAuth.getInstance().sendPasswordResetEmail(etEmail.text.toString()).addOnCompleteListener { task ->
+//                if(task.isSuccessful){
+//                    Toast.makeText(activity, "비밀번호 변경 메일을 전송했습니다", Toast.LENGTH_LONG).show()
+//                }else{
+//                    Toast.makeText(activity, task.exception.toString(), Toast.LENGTH_LONG).show()
+//                }
+//            }
+//        }
 
-        btnChangePw.setOnClickListener {
-            FirebaseAuth.getInstance().sendPasswordResetEmail(etEmail.text.toString()).addOnCompleteListener { task ->
-                if(task.isSuccessful){
-                    Toast.makeText(activity, "비밀번호 변경 메일을 전송했습니다", Toast.LENGTH_LONG).show()
-                }else{
-                    Toast.makeText(activity, task.exception.toString(), Toast.LENGTH_LONG).show()
-                }
-            }
+        btnLogin.setOnClickListener {
+            startActivity(Intent(activity, LoginActivity::class.java))
         }
 
 
@@ -92,6 +88,7 @@ class FindPasswordFragment : Fragment() {
             ?.addOnCompleteListener{ it ->
                 if(it.isSuccessful){
                     Toast.makeText(activity, "인증번호 전송에 성공하였습니다.", Toast.LENGTH_LONG).show()
+                    btnLogin.isEnabled = true
                 } else {
                     Toast.makeText(activity, "인증번호 전송에 실패하였습니다.", Toast.LENGTH_LONG).show()
                 }
