@@ -3,108 +3,263 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:gravity="center"
-    tools:context=".OrderActivity">
+    tools:context=".OrderActivity"
+    android:background="@drawable/background_order_sheet">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
 
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="20dp"
+        android:fontFamily="@font/scdream5"
+        android:text="요청서" />
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5sp"
-        android:text="가게 이름 및 주소" />
+        android:layout_marginTop="130dp"
+        android:layout_marginLeft="50dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/scdream5"
+            android:textSize="10dp"
+            android:text="가게 이름 및 주소" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="3dp"
+        android:orientation="vertical">
     <EditText
         android:id="@+id/StoreAddress"
-        android:layout_width="match_parent"
+
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5sp"
-        android:ems="10"
+        android:textSize="15dp"
+        android:ems="17"
         android:hint="도로명 주소"
+        android:fontFamily="@font/scdream5"
         android:inputType="textPersonName" />
 
+    </LinearLayout>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5sp"
-        android:text="요청 메뉴" />
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="50dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/scdream5"
+            android:textSize="10dp"
+            android:text="요청 메뉴" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="50dp"
+        android:orientation="vertical">
 
     <EditText
         android:id="@+id/Menu"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5sp"
-        android:ems="10"
+        android:ems="17"
+        android:fontFamily="@font/scdream5"
+        android:textSize="15dp"
         android:hint="치킨"
         android:inputType="textPersonName" />
 
-    <TextView
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5sp"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="50dp"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/scdream5"
+        android:textSize="10dp"
         android:text="메뉴 금액" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="50dp"
+        android:orientation="vertical">
 
     <EditText
         android:id="@+id/MenuPrice"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5sp"
-        android:ems="10"
+        android:fontFamily="@font/scdream5"
+        android:ems="17"
+        android:textSize="15dp"
         android:hint="18000"
         android:inputType="number" />
 
-    <TextView
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5sp"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="50dp"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10dp"
+        android:fontFamily="@font/scdream5"
         android:text="배달 금액" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="50dp"
+        android:orientation="vertical">
 
     <EditText
         android:id="@+id/DeliveryPrice"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5sp"
-        android:ems="10"
+        android:fontFamily="@font/scdream5"
+        android:ems="17"
+        android:textSize="15dp"
         android:hint="2000"
         android:inputType="number" />
 
-    <TextView
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="50dp"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/scdream5"
         android:layout_margin="5sp"
+        android:textSize="10dp"
         android:text="최종 금액" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="50dp"
+        android:orientation="vertical">
 
     <EditText
         android:id="@+id/TotalPrice"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5sp"
-        android:ems="10"
+        android:fontFamily="@font/scdream5"
+        android:ems="17"
+        android:textSize="15dp"
         android:hint="20000"
         android:inputType="number" />
 
-    <TextView
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="50dp"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="5sp"
+        android:textSize="10dp"
+        android:fontFamily="@font/scdream5"
         android:text="추가 요청사항" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="50dp"
+        android:orientation="vertical">
 
     <EditText
         android:id="@+id/OrderRequest"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5sp"
-        android:ems="10"
+        android:textSize="15dp"
+        android:ems="17"
+        android:fontFamily="@font/scdream5"
         android:hint="영수증 필요해요!"
         android:inputType="textPersonName" />
 
-    <Button
-        android:id="@+id/OrderSend"
-        android:layout_width="match_parent"
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="작성하기" />
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:orientation="vertical">
 
+        <Button
+            android:id="@+id/OrderSend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/bg_orange"
+            android:fontFamily="@font/scdream5"
+            android:bottomLeftRadius="30dp"
+            android:bottomRightRadius="30dp"
+            android:topLeftRadius="30dp"
+            android:topRightRadius="30dp"
+            android:text="작성하기" />
 
+    </LinearLayout>
 </LinearLayout>
+
+
+
