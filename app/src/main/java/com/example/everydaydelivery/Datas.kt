@@ -21,5 +21,6 @@ data class CurrentOrder(
     val request_accept : String? = null,
     val delivery : String? = null,
     val complete_delivery : String? = null,
-    val storeAddress : String? = null
+    val storeAddress : String? = null,
+    val uid : String? = null
 )

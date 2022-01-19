@@ -1,6 +1,7 @@
 package com.example.everydaydelivery
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,13 +31,14 @@ class OrderListViewAdapter (val context: Context, private val items: ArrayList<O
         tvTimestamp.text = item.timestamp
         tvTitle.text = item.title
 
+        Log.d("adapter", "adapteradapter")
+
         if (tvState.text == "요청수락") {
             tvState.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_home_my_order_delivery))
         } else if (tvState.text == "배달중") {
             tvState.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_home_my_order_request_accept))
         } else {
             tvState.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_home_my_order_state))
-
         }
 
 
