@@ -74,11 +74,11 @@ class MessageActivity : AppCompatActivity() {
 
                                 override fun onDataChange(snapshot: DataSnapshot) {
                                     user = snapshot.getValue<User>()
-                                    dest_name = user?.name
+                                    dest_name = user?.nickname
                                     dest_phone = user?.phone
                                     dest_account = user?.account
 
-                                    val builder = AlertDialog.Builder(this@MessageActivity).setTitle("사용자 정보입니다.").setMessage("이름: $dest_name\n전화번호: $dest_phone\n계좌번호: $dest_account")
+                                    val builder = AlertDialog.Builder(this@MessageActivity).setTitle("상대방 정보입니다.").setMessage("이름: $dest_name\n전화번호: $dest_phone\n계좌번호: $dest_account")
                                         .setPositiveButton(
                                             "확인",
                                             DialogInterface.OnClickListener { dialog, which -> Log.d("dialog", "확인 클릭") })
@@ -160,7 +160,7 @@ class MessageActivity : AppCompatActivity() {
 
                     override fun onDataChange(snapshot: DataSnapshot) {
                         user = snapshot.getValue<User>()
-                        topName.text = user?.name
+                        topName.text = user?.nickname
                         info.visibility = View.VISIBLE
                         getMessageList()
                     }
@@ -205,7 +205,7 @@ class MessageActivity : AppCompatActivity() {
                 holder.layout_destination.visibility = View.INVISIBLE
                 holder.layout_main.gravity = Gravity.RIGHT
             } else { // 상대방 채팅
-                holder.textView_name.text = user?.name
+                holder.textView_name.text = user?.nickname
                 holder.layout_destination.visibility = View.VISIBLE
                 holder.textView_name.visibility = View.VISIBLE
                 holder.textView_message.setBackgroundResource(R.drawable.leftbubble)

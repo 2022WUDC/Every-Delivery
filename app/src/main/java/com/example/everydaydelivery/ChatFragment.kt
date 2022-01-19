@@ -100,7 +100,7 @@ class ChatFragment : Fragment() {
                 }
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val user = snapshot.getValue<User>()
-                    holder.textView_title.text = user?.name
+                    holder.textView_title.text = user?.nickname
                 }
             })
             //메세지 내림차순 정렬 후 마지막 메세지의 키값을 가져옴

@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    
+    <color name="font_color_basic">#2D2D2D</color>
+    <color name="font_color_light">#707070</color>
+
+    <color name="bg_orange">#FFAA00</color>
+    <color name="bg_orange_gradation1">#FFAA00</color>
+    <color name="bg_orange_gradation2">#FF8300</color>
+    <color name="bg_pink">#FF1173</color>
+    <color name="bg_pink_gradation1">#FF6175</color>
+    <color name="bg_pink_gradation2">#FF1173</color>
+    <color name="bg_grey">#919191</color>
+    <color name="bg_white">#f7f7f7</color>
 </resources>
