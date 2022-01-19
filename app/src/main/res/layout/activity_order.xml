@@ -19,8 +19,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="20dp"
         android:textColor="#FFFFFF"
+        android:textSize="20dp"
         android:fontFamily="@font/scdream5"
         android:text="요청서" />
 
@@ -177,7 +177,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/scdream5"
-        android:layout_margin="5sp"
         android:textSize="10dp"
         android:text="최종 금액" />
 
@@ -213,7 +212,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5sp"
         android:textSize="10dp"
         android:fontFamily="@font/scdream5"
         android:text="추가 요청사항" />
