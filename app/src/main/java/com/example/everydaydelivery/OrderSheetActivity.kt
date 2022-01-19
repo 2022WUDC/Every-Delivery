@@ -26,7 +26,6 @@ class OrderSheetActivity : AppCompatActivity() {
     lateinit var tvTotalPrice: TextView
     lateinit var tvOrderRequest: TextView
     lateinit var tvuid:TextView
-    lateinit var uid: String
     lateinit var uid:String
     lateinit var home:ImageButton
 

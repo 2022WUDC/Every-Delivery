@@ -111,6 +111,7 @@ class OrderActivity : AppCompatActivity() {
                 intent.putExtra("complete_writing", orderRequest)
                 intent.putExtra("uid", uid)
                 startActivity(intent)
+
             }
 
         }
