@@ -103,7 +103,6 @@ class DeliveryExFragment : Fragment() {
                         for (data in item) {
                             data.getValue<Order>()?.let { order.add(it) }
                         }
-
                     }
                     notifyDataSetChanged()
                 }
@@ -130,7 +129,7 @@ class DeliveryExFragment : Fragment() {
             holder.menu.text = order[position].menu
             holder.totalPrice.text = order[position].totalPrice
             holder.store.text = order[position].storeAddress
-            holder.time.text = order[position].time.toString()
+            holder.time.text = order[position].complete_writing
             //Toast.makeText(activity, "하나 성공 order개수: ${order.size} 메뉴: ${holder.menu.text} ", Toast.LENGTH_SHORT ).show()
             //Log.d(TAG, "시간알림: ${holder.time.text}")
 
