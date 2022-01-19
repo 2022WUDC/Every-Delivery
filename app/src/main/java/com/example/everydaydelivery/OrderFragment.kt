@@ -17,6 +17,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
+import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -48,10 +50,11 @@ class OrderFragment : Fragment() {
 //        OrderListViewItem("배달완료", "오전 11:47", "응급실국물떡볶이 서울자양점"),
 //    )
 
-//    var orderList = arrayListOf<OrderListViewItem>()
+    var orderList = arrayListOf<OrderListViewItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
     }
 
@@ -94,30 +97,168 @@ class OrderFragment : Fragment() {
         val formatter = DateTimeFormatter.ISO_DATE
         val formatted = current.format(formatter)
 
-
         val uid = firebaseAuth.currentUser?.uid.toString()
-        val orderQuery = dbReference.child("orders").child(uid).equalTo(uid)
+        val orderQuery = dbReference.child("orders")
 
-
-
-
-        orderQuery.addListenerForSingleValueEvent(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
+        orderQuery.addChildEventListener(object: ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 currentOrder.clear()
-                for (snap in snapshot.children) {
-                    var item: MutableIterable<DataSnapshot> = snap.children
-                    for (item2 in item) {
-                        val data = item2.getValue<CurrentOrder>()
-                        val complete_writing = data?.complete_writing
-                        val request_accept = data?.request_accept
-                        val delivery = data?.delivery
-                        val complete_delivery = data?.complete_delivery
-                        val storeAddress = data?.storeAddress
+                var time: String = ""
+                var before_time: String = ""
 
-                        Log.d("item2 complete : ", complete_writing.toString())
-                        Log.d("item2 storeAddress : ", storeAddress.toString())
+                var snap: MutableIterable<DataSnapshot> = snapshot.children
+
+                for (snap2 in snap) {
+                    val data = snap2.getValue<CurrentOrder>()
+                    val complete_writing = data?.complete_writing
+                    val request_accept = data?.request_accept
+                    val delivery = data?.delivery
+                    val complete_delivery = data?.complete_delivery
+                    val storeAddress = data?.storeAddress
+                    val data_uid = data?.uid
+
+                    Log.d("storeAddress : ", storeAddress.toString())
+
+                    if (data_uid == uid) {
+                        if (complete_delivery != null && delivery != null) {
+                            Log.d("complete_delivery : ", complete_delivery)
+                            time = timeCalc(complete_delivery)
+                            before_time = timeCalc(delivery)
+
+                            if (time != "") {
+                                orderList.remove(OrderListViewItem("배달중", before_time, storeAddress.toString()))
+                                orderList.add(OrderListViewItem("배달완료", time, storeAddress.toString()))
+                            }
+                        } else if (delivery != null && request_accept != null) {
+                            Log.d("delivery : ", delivery)
+
+                            time = timeCalc(delivery)
+                            before_time = timeCalc(request_accept)
+
+                            if (time != "") {
+                                orderList.remove(OrderListViewItem("요청수락", before_time, storeAddress.toString()))
+                                orderList.add(OrderListViewItem("배달중", time, storeAddress.toString()))
+                            }
+                        } else if (request_accept != null && complete_writing != null) {
+                            Log.d("request_accept : ", request_accept)
+
+                            time = timeCalc(request_accept)
+                            before_time = timeCalc(complete_writing)
+
+                            if (time != "") {
+                                orderList.remove(OrderListViewItem("작성완료", before_time, storeAddress.toString()))
+                                orderList.add(OrderListViewItem("요청수락", time, storeAddress.toString()))
+                            }
+                        } else if (complete_writing != null) {
+                            Log.d("complete_writing : ", complete_writing)
+
+                            time = timeCalc(complete_writing)
+
+                            if (time != "") {
+                                orderList.add(OrderListViewItem("작성완료", time, storeAddress.toString()))
+                            }
+                        } else {}
+                    }
+
+                    Log.d("orderList.size : ", orderList.size.toString())
+                    Log.d("orderList : ", orderList.toString())
+
+                    if (orderList.size > 0){
+                        listView.visibility = View.VISIBLE
+                        tvNoneOrder.visibility = View.GONE
+
+                        val orderAdapter = OrderListViewAdapter(requireContext(), orderList)
+                        listView.adapter = orderAdapter
+                    } else {
+                        listView.visibility = View.GONE
+                        tvNoneOrder.visibility = View.VISIBLE
+                    }
+
+                }
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                currentOrder.clear()
+                var time: String = ""
+                var before_time: String = ""
+
+                var snap: MutableIterable<DataSnapshot> = snapshot.children
+
+                for (snap2 in snap) {
+                    val data = snap2.getValue<CurrentOrder>()
+                    val complete_writing = data?.complete_writing
+                    val request_accept = data?.request_accept
+                    val delivery = data?.delivery
+                    val complete_delivery = data?.complete_delivery
+                    val storeAddress = data?.storeAddress
+                    val data_uid = data?.uid
+
+                    Log.d("storeAddress : ", storeAddress.toString())
+
+                    if (data_uid == uid) {
+                        if (complete_delivery != null && delivery != null) {
+                            Log.d("complete_delivery : ", complete_delivery)
+                            time = timeCalc(complete_delivery)
+                            before_time = timeCalc(delivery)
+
+                            if (time != "") {
+                                orderList.remove(OrderListViewItem("배달중", before_time, storeAddress.toString()))
+                                orderList.add(OrderListViewItem("배달완료", time, storeAddress.toString()))
+                            }
+                        } else if (delivery != null && request_accept != null) {
+                            Log.d("delivery : ", delivery)
+
+                            time = timeCalc(delivery)
+                            before_time = timeCalc(request_accept)
+
+                            if (time != "") {
+                                orderList.remove(OrderListViewItem("요청수락", before_time, storeAddress.toString()))
+                                orderList.add(OrderListViewItem("배달중", time, storeAddress.toString()))
+                            }
+                        } else if (request_accept != null && complete_writing != null) {
+                            Log.d("request_accept : ", request_accept)
+
+                            time = timeCalc(request_accept)
+                            before_time = timeCalc(complete_writing)
+
+                            if (time != "") {
+                                orderList.remove(OrderListViewItem("작성완료", before_time, storeAddress.toString()))
+                                orderList.add(OrderListViewItem("요청수락", time, storeAddress.toString()))
+                            }
+                        } else if (complete_writing != null) {
+                            Log.d("complete_writing : ", complete_writing)
+
+                            time = timeCalc(complete_writing)
+
+                            if (time != "") {
+                                orderList.remove(OrderListViewItem("작성완료", time, storeAddress.toString()))
+                                orderList.add(OrderListViewItem("작성완료", time, storeAddress.toString()))
+                            }
+                        } else {}
+                    }
+
+                    Log.d("orderList.size : ", orderList.size.toString())
+                    Log.d("orderList : ", orderList.toString())
+
+                    if (orderList.size > 0){
+                        listView.visibility = View.VISIBLE
+                        tvNoneOrder.visibility = View.GONE
+
+                        val orderAdapter = OrderListViewAdapter(requireContext(), orderList)
+                        listView.adapter = orderAdapter
+                    } else {
+                        listView.visibility = View.GONE
+                        tvNoneOrder.visibility = View.VISIBLE
                     }
                 }
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                TODO("Not yet implemented")
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -125,6 +266,57 @@ class OrderFragment : Fragment() {
             }
 
         })
+
+
         return view
+    }
+
+    private fun timeCalc(dateTime: String): String {
+        Log.d("dateTime : ", dateTime)
+
+        val todayDateTime = System.currentTimeMillis()
+        val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일")
+        val today = dateFormat.format(Date(todayDateTime)).toString()
+
+        val dataDate = dateTime.substring(0, 13)
+
+        Log.d("today : ", today + ".")
+        Log.d("dateDate : ", dataDate + ".")
+
+        if (today != dataDate) {
+            return ""
+        }
+
+        var hour = dateTime.substring(14, 16)
+        val minute = dateTime.substring(16)
+        var meridiem: String = ""
+
+        Log.d("hour : ", hour)
+        Log.d("minute : ", minute)
+
+
+        if (hour.toInt() == 12){
+            meridiem = "오후 "
+        }
+        else if (hour.toInt() == 24) {
+            meridiem = "오전 "
+            hour = (hour.toInt() - 12).toString()
+        }
+        else if (hour.toInt() > 12){
+            meridiem = "오후 "
+            hour = (hour.toInt() - 12).toString()
+        }
+        else {
+            meridiem = "오전 "
+        }
+
+        val time:String = meridiem + hour + minute
+
+        Log.d("meridiem : ", meridiem)
+        Log.d("after hour : ", hour)
+        Log.d("after minute : ", minute)
+        Log.d("after time : ", time)
+
+        return time
     }
 }
