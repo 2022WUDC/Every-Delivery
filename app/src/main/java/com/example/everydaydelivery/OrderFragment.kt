@@ -1,6 +1,6 @@
 package com.example.everydaydelivery
 
-import android.content.ContentValues
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -10,20 +10,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
+import androidx.cardview.widget.CardView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
-import org.w3c.dom.Text
+import kotlinx.android.synthetic.main.activity_home.*
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import kotlin.math.min
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class OrderFragment : Fragment() {
@@ -36,6 +34,7 @@ class OrderFragment : Fragment() {
 
     lateinit var listView: ListView
     lateinit var tvNoneOrder: TextView
+    lateinit var cardview_chat: CardView
 
     private var currentOrder: ArrayList<CurrentOrder> = arrayListOf()
 
@@ -67,9 +66,16 @@ class OrderFragment : Fragment() {
 
         listView = view.findViewById(R.id.listView_home)
         tvNoneOrder = view.findViewById(R.id.textView_noneOrder)
+        cardview_chat = view.findViewById(R.id.cardview_chat)
 
 //        val orderAdapter = OrderListViewAdapter(requireContext(), orderList)
 //        listView.adapter = orderAdapter
+
+        cardview_chat.setOnClickListener {
+            var intent = Intent(requireContext(), ChatActivity::class.java)
+            intent.putExtra("switch_checked", false)
+            startActivity(intent)
+        }
 
 
         val current = LocalDateTime.now()
@@ -78,323 +84,298 @@ class OrderFragment : Fragment() {
 
 
         val uid = firebaseAuth.currentUser?.uid.toString()
-        val orderQuery = dbReference.child("orders").child(uid).equalTo(uid)
+        Log.d("UID : ", uid)
 
-        orderQuery.addListenerForSingleValueEvent(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
+        val orderQuery = dbReference.child("orders").child(uid)
+        var orderList = arrayListOf<OrderListViewItem>()
+        var time:String = ""
+
+        orderQuery.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 currentOrder.clear()
-                for (snap in snapshot.children) {
-                    var item: MutableIterable<DataSnapshot> = snap.children
-                    for (item2 in item) {
-                        val data = item2.getValue<CurrentOrder>()
-                        val complete_writing = data?.complete_writing
-                        val request_accept = data?.request_accept
-                        val delivery = data?.delivery
-                        val complete_delivery = data?.complete_delivery
-                        val storeAddress = data?.storeAddress
+                orderList.clear()
 
-                        Log.d("item2 complete : ", complete_writing.toString())
-                        Log.d("item2 storeAddress : ", storeAddress.toString())
+                for (snap in snapshot.children) {
+                    Log.d("item : ", snap.toString())
+                    var item: MutableIterable<DataSnapshot> = snap.children
+
+                    for (item2 in item){
+                        Log.d("item2 : ", item2.toString())
                     }
+
+
+//                    if (snap.child(uid).equals(uid)) {
+//                        var item: MutableIterable<DataSnapshot> = snap.children
+//                        for (item2 in item) {
+//
+//                            val data = item2.getValue<CurrentOrder>()
+//                            val complete_writing = data?.complete_writing
+//                            val request_accept = data?.request_accept
+//                            val delivery = data?.delivery
+//                            val complete_delivery = data?.complete_delivery
+//                            val storeAddress = data?.storeAddress
+//
+//                            if (complete_delivery != null) {
+//                                time = timeCalc(complete_writing.toString())
+//                                Log.d("complete delivery time : ", time)
+//
+//                                if (time != ""){
+//                                    orderList.add(0, OrderListViewItem("배달완료", time, storeAddress.toString()))
+//                                }
+//
+//                            } else if (delivery != null) {
+//                                time = timeCalc(delivery.toString())
+//                                Log.d("delivery time : ", time)
+//
+//                                if (time != ""){
+//                                    orderList.add(0, OrderListViewItem("배달중", time, storeAddress.toString()))
+//                                }
+//
+//                            } else if (request_accept != null) {
+//                                time = timeCalc(request_accept.toString())
+//                                Log.d("request_accept time : ", time)
+//
+//                                if (time != ""){
+//                                    orderList.add(0, OrderListViewItem("요청수락", time, storeAddress.toString()))
+//                                }
+//
+//                            } else if (complete_writing != null) {
+//                                time = timeCalc(complete_writing.toString())
+//                                Log.d("complete_writing time : ", time)
+//
+//                                if (time != ""){
+//                                    orderList.add(0, OrderListViewItem("작성완료", time, storeAddress.toString()))
+//                                }
+//
+//                            } else {
+//
+//                            }
+//                        }
+
+//                    }
+                }
+
+//                if (orderList.size > 0){
+//                    Log.d("Order List state : ", "data 있음")
+//
+//                    listView.visibility = View.VISIBLE
+//                    tvNoneOrder.visibility = View.GONE
+//
+//                    val orderAdapter = OrderListViewAdapter(requireContext(), orderList)
+//                    listView.adapter = orderAdapter
+//
+//                } else {
+//                    Log.d("Order List state : ", "data 없음")
+//                    listView.visibility = View.GONE
+//                    tvNoneOrder.visibility = View.VISIBLE
+//                }
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                currentOrder.clear()
+                orderList.clear()
+                for (snap in snapshot.children) {
+                    if (snap.key.equals(uid)) {
+                        var item: MutableIterable<DataSnapshot> = snap.children
+                        for (item2 in item) {
+
+                            val data = item2.getValue<CurrentOrder>()
+                            val complete_writing = data?.complete_writing
+                            val request_accept = data?.request_accept
+                            val delivery = data?.delivery
+                            val complete_delivery = data?.complete_delivery
+                            val storeAddress = data?.storeAddress
+
+                            if (complete_delivery != null) {
+                                time = timeCalc(complete_writing.toString())
+                                Log.d("complete delivery time : ", time)
+
+                                if (time != ""){
+                                    orderList.add(0, OrderListViewItem("배달완료", time, storeAddress.toString()))
+                                }
+
+                            } else if (delivery != null) {
+                                time = timeCalc(delivery.toString())
+                                Log.d("delivery time : ", time)
+
+                                if (time != ""){
+                                    orderList.add(0, OrderListViewItem("배달중", time, storeAddress.toString()))
+                                }
+
+                            } else if (request_accept != null) {
+                                time = timeCalc(request_accept.toString())
+                                Log.d("request_accept time : ", time)
+
+                                if (time != ""){
+                                    orderList.add(0, OrderListViewItem("요청수락", time, storeAddress.toString()))
+                                }
+
+                            } else if (complete_writing != null) {
+                                time = timeCalc(complete_writing.toString())
+                                Log.d("complete_writing time : ", time)
+
+                                if (time != ""){
+                                    orderList.add(0, OrderListViewItem("작성완료", time, storeAddress.toString()))
+                                }
+
+                            } else {
+
+                            }
+                        }
+
+                    }
+                }
+
+                if (orderList.size > 0){
+                    Log.d("Order List state : ", "data 있음")
+
+                    listView.visibility = View.VISIBLE
+                    tvNoneOrder.visibility = View.GONE
+
+                    val orderAdapter = OrderListViewAdapter(requireContext(), orderList)
+                    listView.adapter = orderAdapter
+
+                } else {
+                    Log.d("Order List state : ", "data 없음")
+                    listView.visibility = View.GONE
+                    tvNoneOrder.visibility = View.VISIBLE
                 }
             }
 
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+
+            }
+
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
 
         })
 
-
-
-//        orderQuery.addChildEventListener(object: ChildEventListener {
-//            var orderList = arrayListOf<OrderListViewItem>()
-//
-//            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-//                Log.d("Today Date : ", LocalDate.now().toString())
-//                var date = LocalDate.now().toString()
+//        orderQuery.addListenerForSingleValueEvent(object: ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                currentOrder.clear()
 //                orderList.clear()
+//                for (snap in snapshot.children) {
+//                    if (snap.key.equals(uid)) {
+//                        var item: MutableIterable<DataSnapshot> = snap.children
+//                        for (item2 in item) {
 //
-//                var key = snapshot.value
-//                Log.d("stroeAddress", snapshot.value.toString())
-//                val storeAddress: String = snapshot.child("storeAddress").value.toString()
-//                var time: String = ""
+//                            val data = item2.getValue<CurrentOrder>()
+//                            val complete_writing = data?.complete_writing
+//                            val request_accept = data?.request_accept
+//                            val delivery = data?.delivery
+//                            val complete_delivery = data?.complete_delivery
+//                            val storeAddress = data?.storeAddress
 //
-//                val complete_writing = snapshot.child("complete_writing").value
-//                if (complete_writing != null){
-//                    var write_time:String = complete_writing.toString().substring(14)
-//                    var meridiem:String = ""
-//                    var hour:String = write_time.substring(0, 1)
-//                    var minute:String = write_time.substring(2, 4)
+//                            if (complete_delivery != null) {
+//                                time = timeCalc(complete_writing.toString())
+//                                Log.d("complete delivery time : ", time)
 //
-//                    if (hour.toInt() == 12){
-//                        meridiem = "오후 "
+//                                if (time != ""){
+//                                    orderList.add(0, OrderListViewItem("배달완료", time, storeAddress.toString()))
+//                                }
+//
+//                            } else if (delivery != null) {
+//                                time = timeCalc(delivery.toString())
+//                                Log.d("delivery time : ", time)
+//
+//                                if (time != ""){
+//                                    orderList.add(0, OrderListViewItem("배달중", time, storeAddress.toString()))
+//                                }
+//
+//                            } else if (request_accept != null) {
+//                                time = timeCalc(request_accept.toString())
+//                                Log.d("request_accept time : ", time)
+//
+//                                if (time != ""){
+//                                    orderList.add(0, OrderListViewItem("요청수락", time, storeAddress.toString()))
+//                                }
+//
+//                            } else if (complete_writing != null) {
+//                                time = timeCalc(complete_writing.toString())
+//                                Log.d("complete_writing time : ", time)
+//
+//                                if (time != ""){
+//                                    orderList.add(0, OrderListViewItem("작성완료", time, storeAddress.toString()))
+//                                }
+//
+//                            } else {
+//
+//                            }
+//                        }
+//
 //                    }
-//                    else if (hour.toInt() == 24) {
-//                        meridiem = "오전 "
-//                        hour = (hour.toInt() - 12).toString()
-//                    }
-//                    else if (hour.toInt() > 12){
-//                        meridiem = "오후 "
-//                        hour = (hour.toInt() - 12).toString()
-//                    }
-//                    else {
-//                        meridiem = "오전 "
-//                    }
-//
-//                    time = meridiem + hour + minute
-//
-//                    orderList.add(0, OrderListViewItem("작성완료", time, storeAddress))
-//                }
-//
-//
-//                val request_accept = snapshot.child("request_accept").value
-//                if (request_accept != null){
-//                    var rAccept_time:String = request_accept.toString().substring(11)
-//                    var meridiem:String = ""
-//                    var hour:String = rAccept_time.substring(0, 1)
-//                    var minute:String = rAccept_time.substring(2, 4)
-//
-//                    if (hour.toInt() == 12){
-//                        meridiem = "오후 "
-//                    }
-//                    else if (hour.toInt() == 24) {
-//                        meridiem = "오전 "
-//                        hour = (hour.toInt() - 12).toString()
-//                    }
-//                    else if (hour.toInt() > 12){
-//                        meridiem = "오후 "
-//                        hour = (hour.toInt() - 12).toString()
-//                    }
-//                    else {
-//                        meridiem = "오전 "
-//                    }
-//
-//                    time = meridiem + hour + minute
-//
-//                    orderList.add(OrderListViewItem( "요청수락", time, storeAddress))
-//                }
-//
-//
-//                val delivery = snapshot.child("delivery").value
-//                if (delivery != null){
-//                    var delivery_time:String = delivery.toString().substring(11)
-//                    var meridiem:String = ""
-//                    var hour:String = delivery_time.substring(0, 1)
-//                    var minute:String = delivery_time.substring(2, 4)
-//
-//                    if (hour.toInt() == 12){
-//                        meridiem = "오후 "
-//                    }
-//                    else if (hour.toInt() == 24) {
-//                        meridiem = "오전 "
-//                        hour = (hour.toInt() - 12).toString()
-//                    }
-//                    else if (hour.toInt() > 12){
-//                        meridiem = "오후 "
-//                        hour = (hour.toInt() - 12).toString()
-//                    }
-//                    else {
-//                        meridiem = "오전 "
-//                    }
-//
-//                    time = meridiem + hour + minute
-//
-//                    orderList.add(OrderListViewItem( "요청수락", time, storeAddress))
-//                }
-//
-//
-//                val complete_delivery = snapshot.child("complete_delivery").value
-//                if (complete_delivery != null){
-//                    var dComplete_time:String = complete_delivery.toString().substring(11)
-//                    var meridiem:String = ""
-//                    var hour:String = dComplete_time.substring(0, 1)
-//                    var minute:String = dComplete_time.substring(2, 4)
-//
-//                    if (hour.toInt() == 12){
-//                        meridiem = "오후 "
-//                    }
-//                    else if (hour.toInt() == 24) {
-//                        meridiem = "오전 "
-//                        hour = (hour.toInt() - 12).toString()
-//                    }
-//                    else if (hour.toInt() > 12){
-//                        meridiem = "오후 "
-//                        hour = (hour.toInt() - 12).toString()
-//                    }
-//                    else {
-//                        meridiem = "오전 "
-//                    }
-//
-//                    time = meridiem + hour + minute
-//
-//                    orderList.add(OrderListViewItem( "요청수락", time, storeAddress))
 //                }
 //
 //                if (orderList.size > 0){
+//                    Log.d("Order List state : ", "data 있음")
+//
 //                    listView.visibility = View.VISIBLE
 //                    tvNoneOrder.visibility = View.GONE
 //
 //                    val orderAdapter = OrderListViewAdapter(requireContext(), orderList)
 //                    listView.adapter = orderAdapter
+//
 //                } else {
+//                    Log.d("Order List state : ", "data 없음")
 //                    listView.visibility = View.GONE
 //                    tvNoneOrder.visibility = View.VISIBLE
 //                }
-//            }
-//
-//            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-//                orderList.clear()
-//
-////                val storeAddress:String = snapshot.child("storeAddress").value.toString()
-////                var time:String = ""
-////
-////                val complete_writing = snapshot.child("complete_writing").value
-////                if (complete_writing != null){
-////                    var write_time:String = complete_writing.toString().substring(11)
-////                    var meridiem:String = ""
-////                    var hour:String = ""
-////                    var minute:String = write_time.substring(2, 4)
-////
-////                    if (write_time.substring(0, 1).toInt() == 12){
-////                        meridiem = "오후 "
-////                        hour = write_time.substring(0, 1)
-////                    }
-////                    else if (write_time.substring(0, 1).toInt() == 24) {
-////                        meridiem = "오전 "
-////                        hour = (write_time.substring(0, 1).toInt() - 12).toString()
-////                    }
-////                    else if (write_time.substring(0, 1).toInt() > 12){
-////                        meridiem = "오후 "
-////                        hour = (write_time.substring(0, 1).toInt() - 12).toString()
-////                    }
-////                    else {
-////                        meridiem = "오전 "
-////                        hour = write_time.substring(0, 1)
-////                    }
-////
-////                    time = meridiem + hour + minute
-////
-////                    orderList.add(OrderListViewItem("작성완료", time, storeAddress))
-////                }
-////
-////
-////                val request_accept = snapshot.child("request_accept").value
-////                if (request_accept != null){
-////                    var rAccept_time:String = request_accept.toString().substring(11)
-////                    var meridiem:String = ""
-////                    var hour:String = ""
-////                    var minute:String = rAccept_time.substring(2, 4)
-////
-////                    if (rAccept_time.substring(0, 1).toInt() == 12){
-////                        meridiem = "오후 "
-////                        hour = rAccept_time.substring(0, 1)
-////                    }
-////                    else if (rAccept_time.substring(0, 1).toInt() == 24) {
-////                        meridiem = "오전 "
-////                        hour = (rAccept_time.substring(0, 1).toInt() - 12).toString()
-////                    }
-////                    else if (rAccept_time.substring(0, 1).toInt() > 12){
-////                        meridiem = "오후 "
-////                        hour = (rAccept_time.substring(0, 1).toInt() - 12).toString()
-////                    }
-////                    else {
-////                        meridiem = "오전 "
-////                        hour = rAccept_time.substring(0, 1)
-////                    }
-////
-////                    time = meridiem + hour + minute
-////
-////                    orderList.add(OrderListViewItem( "요청수락", time, storeAddress))
-////                }
-////
-////
-////                val delivery = snapshot.child("delivery").value
-////                if (delivery != null){
-////                    var delivery_time:String = delivery.toString().substring(11)
-////                    var meridiem:String = ""
-////                    var hour:String = ""
-////                    var minute:String = delivery_time.substring(2, 4)
-////
-////                    if (delivery_time.substring(0, 1).toInt() == 12){
-////                        meridiem = "오후 "
-////                        hour = delivery_time.substring(0, 1)
-////                    }
-////                    else if (delivery_time.substring(0, 1).toInt() == 24) {
-////                        meridiem = "오전 "
-////                        hour = (delivery_time.substring(0, 1).toInt() - 12).toString()
-////                    }
-////                    else if (delivery_time.substring(0, 1).toInt() > 12){
-////                        meridiem = "오후 "
-////                        hour = (delivery_time.substring(0, 1).toInt() - 12).toString()
-////                    }
-////                    else {
-////                        meridiem = "오전 "
-////                        hour = delivery_time.substring(0, 1)
-////                    }
-////
-////                    time = meridiem + hour + minute
-////
-////                    orderList.add(OrderListViewItem( "요청수락", time, storeAddress))
-////                }
-////
-////
-////                val complete_delivery = snapshot.child("complete_delivery").value
-////                if (complete_delivery != null){
-////                    var dComplete_time:String = complete_delivery.toString().substring(11)
-////                    var meridiem:String = ""
-////                    var hour:String = ""
-////                    var minute:String = dComplete_time.substring(2, 4)
-////
-////                    if (dComplete_time.substring(0, 1).toInt() == 12){
-////                        meridiem = "오후 "
-////                        hour = dComplete_time.substring(0, 1)
-////                    }
-////                    else if (dComplete_time.substring(0, 1).toInt() == 24) {
-////                        meridiem = "오전 "
-////                        hour = (dComplete_time.substring(0, 1).toInt() - 12).toString()
-////                    }
-////                    else if (dComplete_time.substring(0, 1).toInt() > 12){
-////                        meridiem = "오후 "
-////                        hour = (dComplete_time.substring(0, 1).toInt() - 12).toString()
-////                    }
-////                    else {
-////                        meridiem = "오전 "
-////                        hour = dComplete_time.substring(0, 1)
-////                    }
-////
-////                    time = meridiem + hour + minute
-////
-////                    orderList.add(OrderListViewItem( "요청수락", time, storeAddress))
-////                }
-//
-//                if (orderList.size > 0){
-//                    listView.visibility = View.VISIBLE
-//                    tvNoneOrder.visibility = View.GONE
-//
-//                    val orderAdapter = OrderListViewAdapter(requireContext(), orderList)
-//                    listView.adapter = orderAdapter
-//                } else {
-//                    listView.visibility = View.GONE
-//                    tvNoneOrder.visibility = View.VISIBLE
-//                }
-//            }
-//
-//            override fun onChildRemoved(snapshot: DataSnapshot) {
-//
-//            }
-//
-//            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
 //
 //            }
 //
 //            override fun onCancelled(error: DatabaseError) {
-//                Toast.makeText(activity, "Error", Toast.LENGTH_SHORT).show()
+//                TODO("Not yet implemented")
 //            }
 //
 //        })
 
 
         return view
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun timeCalc(timeData: String): String {
+        val todayDate = System.currentTimeMillis()
+        var dataFormat = SimpleDateFormat("yyyy년 MM월 dd일")
+        val today = dataFormat.format(Date(todayDate)).toString()
+        var date:String = timeData.substring(0, 12)
+
+        Log.d("now Date : ", today)
+        Log.d("request Date : ", date)
+
+        if (today == date){
+            return ""
+        }
+
+        var time:String = timeData.substring(14)
+        var meridiem:String = ""
+        var hour:String = time.substring(0, 1)
+        var minute:String = time.substring(2, 4)
+
+        if (hour.toInt() == 12){
+            meridiem = "오후 "
+        }
+        else if (hour.toInt() == 24) {
+            meridiem = "오전 "
+            hour = (hour.toInt() - 12).toString()
+        }
+        else if (hour.toInt() > 12){
+            meridiem = "오후 "
+            hour = (hour.toInt() - 12).toString()
+        }
+        else {
+            meridiem = "오전 "
+        }
+
+        var timeResult: String = meridiem + hour + minute
+
+        return timeResult
     }
 }

@@ -8,6 +8,7 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import android.view.MotionEvent
 import android.view.View.OnTouchListener
+import androidx.core.content.ContextCompat
 
 
 class OrderListViewAdapter (val context: Context, private val items: ArrayList<OrderListViewItem>): BaseAdapter() {
@@ -28,6 +29,17 @@ class OrderListViewAdapter (val context: Context, private val items: ArrayList<O
         tvState.text = item.state
         tvTimestamp.text = item.timestamp
         tvTitle.text = item.title
+
+        if (tvState.text == "요청수락") {
+            tvState.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_home_my_order_delivery))
+        } else if (tvState.text == "배달중") {
+            tvState.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_home_my_order_request_accept))
+        } else {
+            tvState.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_home_my_order_state))
+
+        }
+
+
 
         view.setOnTouchListener(OnTouchListener { v, event -> true })
 
